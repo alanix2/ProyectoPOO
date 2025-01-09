@@ -7,7 +7,7 @@
 using namespace sf;
 
 EscenaMenu::EscenaMenu(Juego &j) : Escena(j) {
-	m_font.loadFromFile("asap.ttf");
+	m_font.loadFromFile("assets/fonts/asap.ttf");
 	for (Text &text : m_texts) {
 		text.setFont(m_font);
 		text.setFillColor({255,255,255});

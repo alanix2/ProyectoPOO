@@ -4,7 +4,7 @@
 #include "EscenaMenu.h"
 
 EscenaResultados::EscenaResultados (Juego &j, int puntos) : Escena(j) {
-	m_font.loadFromFile("asap.ttf");
+	m_font.loadFromFile("assets/fonts/asap.ttf");
 	
 	m_text.setFont(m_font);
 	m_text.setPosition(250,250);

@@ -7,8 +7,8 @@
 using namespace std;
 
 EscenaPartida::EscenaPartida(Juego &j) : Escena(j) {
-	m_bala_textura.loadFromFile("bullet.png");
-	m_font.loadFromFile("asap.ttf");
+	m_bala_textura.loadFromFile("assets/player/bullet.png");
+	m_font.loadFromFile("assets/fonts/asap.ttf");
 	m_text.setFont(m_font);
 	m_text.setFillColor({255,255,255});
 	m_text.setOutlineColor({0,0,0});
