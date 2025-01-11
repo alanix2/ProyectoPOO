@@ -11,6 +11,7 @@
 #include <SFML/Graphics/Font.hpp>
 #include "EnemigoBase.h"
 #include <SFML/Graphics/Texture.hpp>
+#include "ItemBase.h"
 using namespace sf;
 using namespace std;
 
@@ -22,10 +23,14 @@ public:
 	void ProcesarEvento (Event &e) override;
 private:
 	Jugador m_Jugador_p1;
+	ItemBase PowerUpTest;
+	//la idea es que tambien haya un vector de enemigos
+	//o que haya alguna manera de hacer que aparezcan muchos
 	EnemigoBase m_enemigo;
+	//Vector de disparos y su textura
 	vector<Disparo> m_disparos;
 	Texture m_bala_textura;
-	int m_puntos = 0;
+	
 	Font m_font;
 	Text m_text;
 };

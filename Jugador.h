@@ -13,11 +13,15 @@ class Jugador : public PersonajeBase {
 	Keyboard::Key m_arr,m_aba,m_izq,m_der;
 	Keyboard::Key m_disp_arr, m_disp_aba, m_disp_izq, m_disp_der;
 	bool sePresionoDisparo();
+	int Puntos = 0;
 public:
 	Jugador();
 	void Actualizar() override;
 	bool debeDisparar();
  	Disparo generarDisparo(Texture &text);
+	void ConfigurarControles();
+	int verPuntos();
+	void sumarPuntos(int num);
 	
 };
 

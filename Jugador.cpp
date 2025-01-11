@@ -6,18 +6,8 @@ using namespace sf;
 
 
 Jugador::Jugador() : PersonajeBase("assets/player/Jugador1.png") {
+	ConfigurarControles();
 	m_spr.setPosition(320, 240);
-	//asignacion de los controles, despues se tendria que hacer leyendo desde un archivo.
-	m_der = Keyboard::D;
-	m_izq = Keyboard::A;
-	m_arr = Keyboard::W;
-	m_aba = Keyboard::S;
-	
-	m_disp_arr = Keyboard::I;
-	m_disp_aba = Keyboard::K;
-	m_disp_izq = Keyboard::J;
-	m_disp_der = Keyboard::L;
-
 	m_spr.setOrigin(33,30);
 }
 
@@ -69,7 +59,7 @@ void Jugador::Actualizar() {
 
 
 bool Jugador::debeDisparar ( ) {
-	if (m_clock.getElapsedTime().asMilliseconds()<500) return false;
+	if (m_clock.getElapsedTime().asMilliseconds()<250) return false;
 	if (sePresionoDisparo()) return false;
 	m_clock.restart();
 	return true;
@@ -87,5 +77,26 @@ bool Jugador::sePresionoDisparo ( ) {
 		not Keyboard::isKeyPressed(m_disp_arr) &&
 		not Keyboard::isKeyPressed(m_disp_izq) &&
 		not Keyboard::isKeyPressed(m_disp_der);
+}
+
+void Jugador::ConfigurarControles ( ) {
+	//asignacion de los controles, despues se tendria que hacer leyendo desde un archivo.
+	m_der = Keyboard::D;
+	m_izq = Keyboard::A;
+	m_arr = Keyboard::W;
+	m_aba = Keyboard::S;
+	
+	m_disp_arr = Keyboard::I;
+	m_disp_aba = Keyboard::K;
+	m_disp_izq = Keyboard::J;
+	m_disp_der = Keyboard::L;
+}
+
+int Jugador::verPuntos ( ) {
+	return Puntos;
+}
+
+void Jugador::sumarPuntos (int num) {
+	Puntos=+num;
 }
 
