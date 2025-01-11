@@ -30,7 +30,9 @@ private:
 	//Vector de disparos y su textura
 	vector<Disparo> m_disparos;
 	Texture m_bala_textura;
-	
+	int PuntajeActual = 0;
+	int verPuntos();
+	void sumarPuntos(int num);
 	Font m_font;
 	Text m_text;
 };

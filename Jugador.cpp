@@ -91,12 +91,3 @@ void Jugador::ConfigurarControles ( ) {
 	m_disp_izq = Keyboard::J;
 	m_disp_der = Keyboard::L;
 }
-
-int Jugador::verPuntos ( ) {
-	return Puntos;
-}
-
-void Jugador::sumarPuntos (int num) {
-	Puntos=+num;
-}
-

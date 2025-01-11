@@ -87,3 +87,11 @@ void EscenaPartida::ProcesarEvento (Event &e) {
 	}
 }
 
+
+int EscenaPartida::verPuntos ( ) {
+	return Puntos;
+}
+
+void EscenaPartida::sumarPuntos (int num) {
+	Puntos=+num;
+}
