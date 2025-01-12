@@ -5,58 +5,21 @@ using namespace std;
 using namespace sf;
 
 
-Jugador::Jugador() : PersonajeBase("assets/player/Jugador1.png") {
+Jugador::Jugador() : PersonajeBase("assets/player/Jugador1.png", 2.5f) {
 	ConfigurarControles();
-	m_spr.setPosition(320, 240);
 	m_spr.setOrigin(33,30);
+	m_spr.setPosition(320,240);
 }
 
 void Jugador::Actualizar() {
-	//controles del jugador, se podria configurar de mejor manera pero hasta ahora sirve.
-	
-	if (Keyboard::isKeyPressed(m_arr)){
-		m_spr.move(0,-2);
-	}
-	if (Keyboard::isKeyPressed(m_aba)){
-		m_spr.move(0,2);
-	}
-	if (Keyboard::isKeyPressed(m_izq)){
-		m_spr.move(-2,0);
-	}
-	if (Keyboard::isKeyPressed(m_der)){
-		m_spr.move(2,0);
-	}
-	
-	// la idea es que en vez de que el sprite rote con las teclas de movimiento, lo haga con las teclas de disparo.
-	if (Keyboard::isKeyPressed(m_disp_arr)){
-		m_spr.setRotation(270); 
-	}
-	if (Keyboard::isKeyPressed(m_disp_aba)){
-		m_spr.setRotation(90); 
-	}
-	if (Keyboard::isKeyPressed(m_disp_izq)){
-		m_spr.setRotation(180); 
-	}
-	if (Keyboard::isKeyPressed(m_disp_der)){
-		m_spr.setRotation(0);
-	}
-	
-	//para mover diagonalmente al personaje
-	
-	if (Keyboard::isKeyPressed(m_disp_arr) && Keyboard::isKeyPressed(m_disp_izq)){
-		m_spr.setRotation(225); 
-	}
-	if (Keyboard::isKeyPressed(m_disp_arr) && Keyboard::isKeyPressed(m_disp_der)){
-		m_spr.setRotation(315);
-	}
-	if (Keyboard::isKeyPressed(m_disp_aba) && Keyboard::isKeyPressed(m_disp_der)){
-		m_spr.setRotation(45); 
-	}
-	if (Keyboard::isKeyPressed(m_disp_aba) && Keyboard::isKeyPressed(m_disp_izq)){
-		m_spr.setRotation(135); 
-	}
+	mover();
+	rotarSprite();
 }
 
+/* 
+seccion de disparo, habria que ver si esto se podria hacer de mejor manera
+ en vez de hacer tantos metodos 
+*/
 
 bool Jugador::debeDisparar ( ) {
 	if (m_clock.getElapsedTime().asMilliseconds()<250) return false;
@@ -73,11 +36,13 @@ Disparo Jugador::generarDisparo (Texture &text) {
 }
 
 bool Jugador::sePresionoDisparo ( ) {
-	return not Keyboard::isKeyPressed(m_disp_aba) && 
-		not Keyboard::isKeyPressed(m_disp_arr) &&
-		not Keyboard::isKeyPressed(m_disp_izq) &&
-		not Keyboard::isKeyPressed(m_disp_der);
+	return !Keyboard::isKeyPressed(m_disp_aba) && 
+		!Keyboard::isKeyPressed(m_disp_arr) &&
+		!Keyboard::isKeyPressed(m_disp_izq) &&
+		!Keyboard::isKeyPressed(m_disp_der);
 }
+
+/*fin seccion disparo*/
 
 void Jugador::ConfigurarControles ( ) {
 	//asignacion de los controles, despues se tendria que hacer leyendo desde un archivo.
@@ -91,3 +56,62 @@ void Jugador::ConfigurarControles ( ) {
 	m_disp_izq = Keyboard::J;
 	m_disp_der = Keyboard::L;
 }
+
+int Jugador::verPuntos ( ) {
+	return PuntajeActual;
+}
+
+void Jugador::sumarPuntos (int n) {
+	PuntajeActual+=n;
+}
+
+void Jugador::mover ( ) {
+	Vector2f movimiento(0.0f, 0.0f);
+	
+	// Verificar si las teclas están presionadas y asignar la dirección
+	if (sf::Keyboard::isKeyPressed(m_arr)) {
+		movimiento.y -= 1.0f; // Movimiento hacia arriba
+	}
+	if (sf::Keyboard::isKeyPressed(m_aba)) {
+		movimiento.y += 1.0f; // Movimiento hacia abajo
+	}
+	if (sf::Keyboard::isKeyPressed(m_izq)) {
+		movimiento.x -= 1.0f; // Movimiento hacia la izquierda
+	}
+	if (sf::Keyboard::isKeyPressed(m_der)) {
+		movimiento.x += 1.0f; // Movimiento hacia la derecha
+	}
+	
+	// Normalizar el vector de movimiento (para que el jugador se mueva a la misma velocidad en todas las direcciones)
+	if (movimiento.x != 0.0f || movimiento.y != 0.0f) {
+		float longitud = sqrt(movimiento.x * movimiento.x + movimiento.y * movimiento.y);
+		movimiento /= longitud;  // Normalizar
+		
+		// Mover al jugador con la velocidad
+		m_spr.move(movimiento * verVel());
+	}
+}
+
+void Jugador::rotarSprite ( ) {
+	Vector2f direccion(0.f, 0.f);
+	
+	if (Keyboard::isKeyPressed(m_disp_arr)) {
+		direccion.y -= 1.f; // Arriba
+	}
+	if (Keyboard::isKeyPressed(m_disp_aba)) {
+		direccion.y += 1.f; // Abajo
+	}
+	if (Keyboard::isKeyPressed(m_disp_izq)) {
+		direccion.x -= 1.f; // Izquierda
+	}
+	if (Keyboard::isKeyPressed(m_disp_der)) {
+		direccion.x += 1.f; // Derecha
+	}
+	
+	// Si el jugador presiona alguna tecla, rota el sprite
+	if (direccion != Vector2f(0.f, 0.f)) {
+		float angulo = atan2(direccion.y, direccion.x) * 180 / M_PI;
+		m_spr.setRotation(angulo);
+	}
+}
+

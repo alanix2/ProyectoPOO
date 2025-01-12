@@ -20,6 +20,8 @@ public:
 private:
 	RenderWindow m_win;
 	Escena *m_EscenaActual = nullptr, *m_ProximaEscena = nullptr; //Escena actual y proxima escena
+	
+	//mayor puntaje, esto se tendria que guardar y leer desde un archivo y poder mostrar los mejores puntajes.
 	int m_highscore = 0;
 };
 

@@ -9,9 +9,7 @@
 #include "Juego.h"
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
-#include "EnemigoBase.h"
 #include <SFML/Graphics/Texture.hpp>
-#include "ItemBase.h"
 using namespace sf;
 using namespace std;
 
@@ -21,18 +19,14 @@ public:
 	void Actualizar() override;
 	void Dibujar(RenderWindow &w) override;
 	void ProcesarEvento (Event &e) override;
+	String verPuntos();
 private:
-	Jugador m_Jugador_p1;
-	ItemBase PowerUpTest;
-	//la idea es que tambien haya un vector de enemigos
-	//o que haya alguna manera de hacer que aparezcan muchos
-	EnemigoBase m_enemigo;
+	Jugador m_Jugador;
 	//Vector de disparos y su textura
 	vector<Disparo> m_disparos;
 	Texture m_bala_textura;
-	int PuntajeActual = 0;
-	int verPuntos();
-	void sumarPuntos(int num);
+	
+	// fuente y texto para ver score y vidas
 	Font m_font;
 	Text m_text;
 };

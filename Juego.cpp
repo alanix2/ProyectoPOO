@@ -50,10 +50,12 @@ void Juego::Salir ( ) {
 }
 
 int Juego::VerHighscore ( ) const {
+	//Aca se tendria que leer en un archivo
 	return m_highscore;
 }
 
 void Juego::ActualizarScore (int nuevo_score) {
+	//Aca se tendria que guardar en un archivo
 	if (nuevo_score>m_highscore) m_highscore = nuevo_score;
 }
 

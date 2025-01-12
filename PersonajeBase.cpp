@@ -1,8 +1,8 @@
 #include "PersonajeBase.h"
 
-PersonajeBase::PersonajeBase (std::string NombreTextura) {
-	m_tex.loadFromFile(NombreTextura);
-	m_spr.setTexture(m_tex);
+PersonajeBase::PersonajeBase (string t, float vel) : m_vel(vel) {
+	m_texture.loadFromFile(t);
+	m_spr.setTexture(m_texture);
 }
 
 void PersonajeBase::Dibujar (RenderWindow & w) {
@@ -13,4 +13,8 @@ Vector2f PersonajeBase::verPosicion ( ) {
 	return m_spr.getPosition();
 }
 
+
+float PersonajeBase::verVel ( ) {
+	return m_vel;
+}
 

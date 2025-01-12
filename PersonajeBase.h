@@ -4,19 +4,20 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
-
+#include <string>
+using namespace std;
 using namespace sf;
 
 class PersonajeBase {
 public:
-	PersonajeBase(std::string NombreTextura);
-	virtual void Actualizar() = 0;
+	PersonajeBase(string t, float vel);
 	void Dibujar(RenderWindow &w);
 	Vector2f verPosicion();
+	float verVel();
 private:
-	
+	float m_vel;
 protected:
-	Texture m_tex;
+	Texture m_texture;
 	Sprite m_spr;
 };
 

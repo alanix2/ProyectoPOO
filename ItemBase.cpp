@@ -10,7 +10,7 @@ ItemBase::ItemBase() {
 
 
 void ItemBase::RecogerItem (Jugador & j) {
-	std::cout<<"hola";
+	j.sumarPuntos(3);
 }
 
 void ItemBase::Dibujar (RenderWindow & w) {

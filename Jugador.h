@@ -6,20 +6,26 @@
 #include <SFML/Window/Keyboard.hpp>
 #include "Disparo.h"
 #include "PersonajeBase.h"
+#include <string>
 using namespace sf;
-
+using namespace std;
 class Jugador : public PersonajeBase {
 	Clock m_clock;
-	Keyboard::Key m_arr,m_aba,m_izq,m_der;
-	Keyboard::Key m_disp_arr, m_disp_aba, m_disp_izq, m_disp_der;
+	//opcional? luego podriamos poner controles con joystick
+	Keyboard::Key m_arr,m_aba,m_izq,m_der; //controles de movimiento
+	Keyboard::Key m_disp_arr, m_disp_aba, m_disp_izq, m_disp_der; //controles de disparo
 	bool sePresionoDisparo();
+	void mover();
+	void rotarSprite();
+	int PuntajeActual = 0;
 public:
 	Jugador();
-	void Actualizar() override;
+	void Actualizar();
 	bool debeDisparar();
  	Disparo generarDisparo(Texture &text);
 	void ConfigurarControles();
-
+	int verPuntos();
+	void sumarPuntos(int n);
 	
 };
 
