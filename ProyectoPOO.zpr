@@ -14,6 +14,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
+current_source=EnemigoBase.cpp
 path_char=\
 [source]
 path=main.cpp
@@ -42,6 +43,10 @@ cursor=11:13
 [source]
 path=EscenaMenu.cpp
 cursor=9:39
+[source]
+path=EnemigoBase.cpp
+cursor=0:0
+open=true
 [header]
 path=Jugador.h
 cursor=13:57
@@ -69,6 +74,10 @@ cursor=10:28
 [header]
 path=EscenaMenu.h
 cursor=18:12
+[header]
+path=EnemigoBase.h
+cursor=0:0
+open=true
 [config]
 name=Debug_Win32
 toolchain=
