@@ -10,6 +10,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include "Zombie.h"
 using namespace sf;
 using namespace std;
 
@@ -22,6 +23,9 @@ public:
 	String verPuntos();
 private:
 	Jugador m_Jugador;
+	
+	Texture m_zombie_textura;
+	vector<Zombie> m_zombies;
 	//Vector de disparos y su textura
 	vector<Disparo> m_disparos;
 	Texture m_bala_textura;

@@ -7,7 +7,10 @@
 using namespace std;
 
 EscenaPartida::EscenaPartida(Juego &j) : Escena(j) {
-
+	m_zombie_textura.loadFromFile("assets/player/Jugador1.png");
+	m_zombies.push_back(Zombie(m_zombie_textura, Vector2f(100, 100)));
+	m_zombies.push_back(Zombie(m_zombie_textura, Vector2f(200, 500)));
+	m_zombies.push_back(Zombie(m_zombie_textura, Vector2f(600, 400)));
 	m_bala_textura.loadFromFile("assets/player/bullet.png");
 	m_font.loadFromFile("assets/fonts/asap.ttf");
 	m_text.setFont(m_font);
@@ -40,11 +43,13 @@ bool fuera_de_la_pantalla(Disparo &d) {
 
 void EscenaPartida::Actualizar () {
 	m_Jugador.Actualizar();
-	
 	if (m_Jugador.debeDisparar())
 		m_disparos.push_back(m_Jugador.generarDisparo(m_bala_textura));
 	for(Disparo &d : m_disparos)
 		d.Actualizar();
+	
+	for(Zombie &z : m_zombies)
+		z.Actualizar(m_Jugador.verPosicion());
 	
 //	for(size_t d = 0; d < m_disparos.size();++d) {
 //		auto it = m_disparos.begin() + d;
@@ -68,9 +73,15 @@ void EscenaPartida::Actualizar () {
 void EscenaPartida::Dibujar (RenderWindow & w) {
 	w.clear(Color(220,220,180,255));
 	m_Jugador.Dibujar(w);
+	
 	for(Disparo &d : m_disparos)
 		d.Dibujar(w);
+
+	for(Zombie &z : m_zombies)
+		z.Dibujar(w);
+	
 	w.draw(m_text);
+	
 }
 
 void EscenaPartida::ProcesarEvento (Event &e) {

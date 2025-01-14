@@ -15,19 +15,20 @@ EscenaMenu::EscenaMenu(Juego &j) : Escena(j) {
 		text.setOutlineThickness(1);
 		m_texts[3].setCharacterSize(30);
 	}
-	m_texts[1].setPosition(90,150);
-	m_texts[1].setCharacterSize(80);
+	m_texts[1].setPosition(130,150);
+	m_texts[1].setCharacterSize(29);
 	m_texts[1].setString("Super Shooter");
 	m_texts[1].setOutlineThickness(2);
 	m_texts[1].setFillColor({241,214,32});
 	
-	m_texts[0].setPosition(420,250);
+	m_texts[0].setPosition(420,200);
 	m_texts[0].setRotation(-20);
-	m_texts[0].setCharacterSize(40);
+	m_texts[0].setCharacterSize(20);
 	m_texts[0].setString("Deluxe!");
 	m_texts[0].setFillColor({241,51,32});
 	
-	m_texts[2].setPosition(90,350);
+	m_texts[2].setPosition(45,350);
+	m_texts[2].setCharacterSize(18);
 	m_texts[2].setString("<presione Enter para comenzar>");
 	
 	m_texts[3].setPosition(230,430);

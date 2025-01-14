@@ -2,7 +2,6 @@
 #include <cmath>
 
 Disparo::Disparo(Texture &text, Vector2f pos, Vector2f dir) {
-	
 	m_sprite.setTexture(text);
 	m_sprite.setPosition(pos);
 	m_sprite.setOrigin(8,8);
