@@ -21,3 +21,9 @@ Vector2f Disparo::verPosicion ( ) {
 	return m_sprite.getPosition();
 }
 
+
+bool Disparo::Colisiona (Vector2f pos) {
+	Vector2f v = verPosicion()-pos;
+	return sqrt(v.x*v.x+v.y*v.y)<25;
+}
+

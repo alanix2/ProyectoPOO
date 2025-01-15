@@ -22,22 +22,11 @@ EscenaPartida::EscenaPartida(Juego &j) : Escena(j) {
 	m_text.setString(verPuntos());
 }
 
-/****************************************/
-//aca habria que hacer alguna manera de que las colisiones se calculen con menos metodos
-
-bool colisiona(Disparo &d, PersonajeBase &t) {
-	Vector2f pd = d.verPosicion();
-	Vector2f pt = t.verPosicion();
-	Vector2f v = pd-pt;
-	return sqrt(v.x*v.x+v.y*v.y)<25;
-}
-
-/*************************************/
 
 bool fuera_de_la_pantalla(Disparo &d) {
 	Vector2f p = d.verPosicion();
-	if (p.x<0 or p.x>800) return true;
-	if (p.y<0 or p.y>600) return true;
+	if (p.x<0 or p.x>640) return true;
+	if (p.y<0 or p.y>480) return true;
 	return false;
 }
 
@@ -51,14 +40,13 @@ void EscenaPartida::Actualizar () {
 	for(Zombie &z : m_zombies)
 		z.Actualizar(m_Jugador.verPosicion());
 	
-//	for(size_t d = 0; d < m_disparos.size();++d) {
-//		auto it = m_disparos.begin() + d;
-//		if (colisiona(m_disparos[d],m_enemigo)) {
-//			m_disparos.erase(it);
-//			m_Jugador_p1.sumarPuntos(1);
-//			m_text.setString(m_Jugador_p1.verPuntos());
-//		}
-//	}
+	for(size_t d = 0; d < m_disparos.size();++d) {
+		auto it = m_disparos.begin() + d;
+		if (m_disparos[d].Colisiona(m_zombies[1].verPosicion())) {
+			m_disparos.erase(it);
+			m_Jugador.sumarPuntos(1);
+		}
+	}
 
 	auto it = remove_if(m_disparos.begin(),m_disparos.end(),fuera_de_la_pantalla);
 	m_disparos.erase(it,m_disparos.end());
@@ -68,6 +56,8 @@ void EscenaPartida::Actualizar () {
 		m_juego.ActualizarScore(m_Jugador.verPuntos());
 		m_juego.cambiarEscena(new EscenaResultados(m_juego, m_Jugador.verPuntos()));
 	}
+	
+	m_text.setString(verPuntos());
 }
 
 void EscenaPartida::Dibujar (RenderWindow & w) {
@@ -92,6 +82,6 @@ void EscenaPartida::ProcesarEvento (Event &e) {
 }
 
 String EscenaPartida::verPuntos ( ) {
-	return "Score: " + std::to_string(m_Jugador.verPuntos());
+	return "SCORE: " + std::to_string(m_Jugador.verPuntos());
 }
 

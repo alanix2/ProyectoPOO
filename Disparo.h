@@ -15,6 +15,7 @@ public:
 	Disparo(Texture &text, Vector2f pos, Vector2f dir);
 	void Actualizar();
 	void Dibujar(RenderWindow &w);
+	bool Colisiona(Vector2f pos);
 	Vector2f verPosicion();
 private:
 	Sprite m_sprite;
