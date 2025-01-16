@@ -1,4 +1,6 @@
 #include "PersonajeBase.h"
+#include <cmath>
+using namespace std;
 
 PersonajeBase::PersonajeBase (string t, float vel) : m_vel(vel) {
 	m_texture.loadFromFile(t);
@@ -17,4 +19,10 @@ Vector2f PersonajeBase::verPosicion ( ) {
 float PersonajeBase::verVel ( ) {
 	return m_vel;
 }
+
+bool PersonajeBase::Colisiona (Vector2f pos) {
+	Vector2f v = verPosicion()-pos;
+	return sqrt(v.x*v.x+v.y*v.y)<25;
+}
+
 

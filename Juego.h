@@ -22,6 +22,8 @@ private:
 	Escena *m_EscenaActual = nullptr, *m_ProximaEscena = nullptr; //Escena actual y proxima escena
 	
 	//mayor puntaje, esto se tendria que guardar y leer desde un archivo y poder mostrar los mejores puntajes.
+	//podria ser, un vector de 10 enteros o strings con los 10 mejores puntajes y 3 letras
+	//ejemplo: NHE 1865323
 	int m_highscore = 0;
 };
 

@@ -4,6 +4,7 @@ using namespace sf;
 
 Juego::Juego () : m_win(VideoMode(640,480),"Ejemplo de SFML", Style::Titlebar | Style::Close) {
 	m_win.setFramerateLimit(60);
+	//tendriamos que hacer que el highscore se lea desde un archivo, que tenga los 10 mejores puntajes y 3 letras
 }
 
 void Juego::Jugar (Escena *primera_escena) {
@@ -50,7 +51,6 @@ void Juego::Salir ( ) {
 }
 
 int Juego::VerHighscore ( ) const {
-	//Aca se tendria que leer en un archivo
 	return m_highscore;
 }
 

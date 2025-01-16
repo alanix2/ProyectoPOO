@@ -14,12 +14,17 @@ public:
 	void Dibujar(RenderWindow &w);
 	Vector2f verPosicion();
 	float verVel();
+	bool Colisiona(Vector2f pos);
 private:
 	float m_vel;
 protected:
 	Texture m_texture;
 	Sprite m_spr;
 };
+
+//estaba pensando en hacer que PersonajeBase, EnemigoBase, Disparo y cualquier otra clase sobre algo en el juego,
+//sean todos una subclase de una clase llamada Entidad. ya que todas comparten
+// dibujar, verPosicion, Colisiono, etcetera.
 
 #endif
 

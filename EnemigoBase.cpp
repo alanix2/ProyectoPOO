@@ -1,15 +1,17 @@
 #include "EnemigoBase.h"
+#include <cmath>
+using namespace std;
 
-EnemigoBase::EnemigoBase (sf::Texture & t, sf::Vector2f pos, float vel, int puntos) : m_velocidad(vel), m_puntos(puntos){
+EnemigoBase::EnemigoBase (Texture & t, Vector2f pos, float vel, int puntos) : m_velocidad(vel), m_puntos(puntos){
 	m_sprite.setTexture(t);
 	m_sprite.setPosition(pos);
 }
 
-void EnemigoBase::Actualizar (sf::Vector2f pos_jugador) {
+void EnemigoBase::Actualizar (Vector2f pos_jugador) {
 	
 }
 
-sf::Vector2f EnemigoBase::verPosicion ( ) {
+Vector2f EnemigoBase::verPosicion ( ) {
 	return m_sprite.getPosition();
 }
 
@@ -21,7 +23,12 @@ float EnemigoBase::verVelocidad ( ) {
 	return m_velocidad;
 }
 
-void EnemigoBase::Dibujar (sf::RenderWindow & w) {
+void EnemigoBase::Dibujar (RenderWindow & w) {
 	w.draw(m_sprite);
+}
+
+bool EnemigoBase::Colisiona (Vector2f pos) {
+	Vector2f v = verPosicion()-pos;
+	return sqrt(v.x*v.x+v.y*v.y)<25;
 }
 
