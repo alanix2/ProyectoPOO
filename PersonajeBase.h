@@ -19,7 +19,7 @@ private:
 	float m_vel;
 protected:
 	Texture m_texture;
-	Sprite m_spr;
+	Sprite m_sprite;
 };
 
 //estaba pensando en hacer que PersonajeBase, EnemigoBase, Disparo y cualquier otra clase sobre algo en el juego,

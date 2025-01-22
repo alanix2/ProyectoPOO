@@ -4,15 +4,16 @@ using namespace std;
 
 PersonajeBase::PersonajeBase (string t, float vel) : m_vel(vel) {
 	m_texture.loadFromFile(t);
-	m_spr.setTexture(m_texture);
+	m_sprite.setTexture(m_texture);
+	m_sprite.setOrigin(m_texture.getSize().x/2,m_texture.getSize().y/2);
 }
 
 void PersonajeBase::Dibujar (RenderWindow & w) {
-	w.draw(m_spr);
+	w.draw(m_sprite);
 }
 
 Vector2f PersonajeBase::verPosicion ( ) {
-	return m_spr.getPosition();
+	return m_sprite.getPosition();
 }
 
 

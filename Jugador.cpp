@@ -7,8 +7,7 @@ using namespace sf;
 
 Jugador::Jugador() : PersonajeBase("assets/player/Jugador1.png", 2.5f) {
 	ConfigurarControles();
-	m_spr.setOrigin(33,30);
-	m_spr.setPosition(320,240);
+	m_sprite.setPosition(320,240);
 }
 
 void Jugador::Actualizar() {
@@ -29,8 +28,8 @@ bool Jugador::debeDisparar ( ) {
 }
 
 Disparo Jugador::generarDisparo (Texture &text) {
-	Vector2f p = m_spr.getPosition();
-	float ang = m_spr.getRotation()*M_PI/180;
+	Vector2f p = m_sprite.getPosition();
+	float ang = m_sprite.getRotation()*M_PI/180;
 	Vector2f d(cos(ang),sin(ang));
 	return Disparo(text, p+25.f*d,d);
 }
@@ -88,7 +87,7 @@ void Jugador::mover ( ) {
 		movimiento /= longitud;  // Normalizar
 		
 		// Mover al jugador con la velocidad
-		m_spr.move(movimiento * verVel());
+		m_sprite.move(movimiento * verVel());
 	}
 }
 
@@ -111,7 +110,7 @@ void Jugador::rotarSprite ( ) {
 	// Si el jugador presiona alguna tecla, rota el sprite
 	if (direccion != Vector2f(0.f, 0.f)) {
 		float angulo = atan2(direccion.y, direccion.x) * 180 / M_PI;
-		m_spr.setRotation(angulo);
+		m_sprite.setRotation(angulo);
 	}
 }
 

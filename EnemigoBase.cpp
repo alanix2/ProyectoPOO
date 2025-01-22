@@ -5,6 +5,7 @@ using namespace std;
 EnemigoBase::EnemigoBase (Texture & t, Vector2f pos, float vel, int puntos) : m_velocidad(vel), m_puntos(puntos){
 	m_sprite.setTexture(t);
 	m_sprite.setPosition(pos);
+	m_sprite.setOrigin(t.getSize().x/2 ,t.getSize().y/2);
 }
 
 void EnemigoBase::Actualizar (Vector2f pos_jugador) {

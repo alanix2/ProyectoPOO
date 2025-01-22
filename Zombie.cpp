@@ -2,9 +2,7 @@
 #include <cmath>
 
 Zombie::Zombie (sf::Texture & t, sf::Vector2f pos) : EnemigoBase(t,pos,2.0f,50) {
-	//el origen se cambiaria despues para su debido sprite
-	m_sprite.setOrigin(33,30);
-	
+	m_sprite.setScale(0.5,0.5);
 }
 
 void Zombie::Actualizar (sf::Vector2f pos_jugador) {

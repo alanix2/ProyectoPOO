@@ -4,8 +4,7 @@
 ItemBase::ItemBase() {
 	m_texture.loadFromFile("assets/item/Power.png");
 	m_sprite.setTexture(m_texture);
-	m_sprite.setOrigin(8,8);
-	m_sprite.setPosition(220, 240);
+	m_sprite.setOrigin(m_texture.getSize().x/2,m_texture.getSize().y/2);
 }
 
 

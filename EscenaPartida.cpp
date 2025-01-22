@@ -9,7 +9,7 @@
 using namespace std;
 
 EscenaPartida::EscenaPartida(Juego &j) : Escena(j) {
-	m_zombie_textura.loadFromFile("assets/player/Jugador1.png");
+	m_zombie_textura.loadFromFile("assets/enemy/zombiebasic.png");
 	m_zombies.push_back(Zombie(m_zombie_textura, Vector2f(100, 100)));
 	m_zombies.push_back(Zombie(m_zombie_textura, Vector2f(200, 500)));
 	m_zombies.push_back(Zombie(m_zombie_textura, Vector2f(600, 400)));
@@ -96,7 +96,7 @@ void EscenaPartida::Actualizar () {
 }
 
 void EscenaPartida::Dibujar (RenderWindow & w) {
-	w.clear(Color(220,220,180,255));
+	w.clear(Color(0,0,0,255));
 	m_Jugador.Dibujar(w);
 	
 	for(Disparo &d : m_disparos)
