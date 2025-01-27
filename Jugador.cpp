@@ -5,8 +5,10 @@ using namespace std;
 using namespace sf;
 
 
-Jugador::Jugador() : PersonajeBase("assets/player/Jugador1.png", 2.5f) {
+Jugador::Jugador() : PersonajeBase("assets/player/SpriteSheetGuns.png", 2.5f) {
 	ConfigurarControles();
+	m_sprite.setTextureRect(IntRect(0,48,48,48));
+	m_sprite.setOrigin((m_texture.getSize().x/2)/2,(m_texture.getSize().y/2)/2);
 	m_sprite.setPosition(320,240);
 }
 
@@ -21,13 +23,19 @@ seccion de disparo, habria que ver si esto se podria hacer de mejor manera
 */
 
 bool Jugador::debeDisparar ( ) {
-	if (m_clock.getElapsedTime().asMilliseconds()<250) return false;
-	if (sePresionoDisparo()) return false;
+	if (m_clock.getElapsedTime().asMilliseconds()<300){
+		return false;
+	}
+	if (not sePresionoDisparo()){
+		m_sprite.setTextureRect(IntRect(0,48,48,48));
+		return false;
+	}
 	m_clock.restart();
 	return true;
 }
 
 Disparo Jugador::generarDisparo (Texture &text) {
+	m_sprite.setTextureRect(IntRect(48,48,48,48));
 	Vector2f p = m_sprite.getPosition();
 	float ang = m_sprite.getRotation()*M_PI/180;
 	Vector2f d(cos(ang),sin(ang));
@@ -35,10 +43,10 @@ Disparo Jugador::generarDisparo (Texture &text) {
 }
 
 bool Jugador::sePresionoDisparo ( ) {
-	return !Keyboard::isKeyPressed(m_disp_aba) && 
-		!Keyboard::isKeyPressed(m_disp_arr) &&
-		!Keyboard::isKeyPressed(m_disp_izq) &&
-		!Keyboard::isKeyPressed(m_disp_der);
+	return Keyboard::isKeyPressed(m_disp_aba) or 
+		Keyboard::isKeyPressed(m_disp_arr) or
+		Keyboard::isKeyPressed(m_disp_izq) or
+		Keyboard::isKeyPressed(m_disp_der);
 }
 
 /*fin seccion disparo*/
@@ -112,5 +120,21 @@ void Jugador::rotarSprite ( ) {
 		float angulo = atan2(direccion.y, direccion.x) * 180 / M_PI;
 		m_sprite.setRotation(angulo);
 	}
+}
+
+void Jugador::restarVida ( ) {
+	m_vidas--;
+	//cuando pierde una vida vuelve a la posicion inicial. luego se tendria que
+	//implementar mejor, como reiniciando el nivel
+	m_sprite.setPosition(320,240);
+	
+}
+
+void Jugador::sumarVida ( ) {
+	m_vidas++;
+}
+
+int Jugador::verVidas ( ) {
+	return m_vidas;
 }
 

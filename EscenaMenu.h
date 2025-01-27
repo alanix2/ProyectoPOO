@@ -16,7 +16,7 @@ public:
 private:
 	Font m_font;
 	Clock m_clock;
-	Text m_texts[5];
+	Text m_texts[4];
 };
 
 #endif

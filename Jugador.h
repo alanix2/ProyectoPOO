@@ -18,12 +18,16 @@ class Jugador : public PersonajeBase {
 	void mover();
 	void rotarSprite();
 	int PuntajeActual = 0;
+	int m_vidas = 3;
 public:
 	Jugador();
 	void Actualizar();
 	bool debeDisparar();
  	Disparo generarDisparo(Texture &text);
 	void ConfigurarControles();
+	void restarVida();
+	void sumarVida();
+	int verVidas();
 	int verPuntos();
 	void sumarPuntos(int n);
 	

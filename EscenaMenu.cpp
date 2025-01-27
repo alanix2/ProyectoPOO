@@ -4,6 +4,9 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "Juego.h"
 
+#include <sstream>
+#include <iomanip>
+using namespace std;
 using namespace sf;
 
 EscenaMenu::EscenaMenu(Juego &j) : Escena(j) {
@@ -14,7 +17,7 @@ EscenaMenu::EscenaMenu(Juego &j) : Escena(j) {
 		text.setFillColor({255,255,255});
 		text.setOutlineColor({0,0,0});
 		text.setOutlineThickness(1);
-		m_texts[3].setCharacterSize(30);
+		
 	}
 	m_texts[1].setPosition(130,150);
 	m_texts[1].setCharacterSize(29);
@@ -32,11 +35,12 @@ EscenaMenu::EscenaMenu(Juego &j) : Escena(j) {
 	m_texts[2].setCharacterSize(18);
 	m_texts[2].setString("<presione Enter para comenzar>");
 	
-	m_texts[3].setPosition(230,430);
-	m_texts[3].setString("Highscore: " + to_string(j.VerHighscore()));
+	stringstream pts;
+	pts << "HIGHSCORE: " << setw(8) << setfill('0') << j.VerHighscore();
+	m_texts[3].setString(pts.str());
+	m_texts[3].setCharacterSize(25);
+	m_texts[3].setPosition(100,430);
 	
-	m_texts[4].setPosition(0,440);
-	m_texts[4].setString("Hola");
 	
 }
 

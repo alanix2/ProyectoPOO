@@ -2,14 +2,19 @@
 #include "EscenaPartida.h"
 #include "Juego.h"
 #include "EscenaMenu.h"
+#include <sstream>
+#include <iomanip>
+using namespace std;
 
 EscenaResultados::EscenaResultados (Juego &j, int puntos) : Escena(j) {
 	m_font.loadFromFile("assets/fonts/asap.ttf");
 	
 	m_text.setFont(m_font);
 	m_text.setPosition(250,250);
-	m_text.setCharacterSize(40);
-	m_text.setString("Score: "+std::to_string(puntos));
+	m_text.setCharacterSize(20);
+	stringstream pts;
+	pts << "SCORE: " << setw(8) << setfill('0') << puntos ;
+	m_text.setString(pts.str());
 	m_text.setFillColor({255,128,128});
 }
 

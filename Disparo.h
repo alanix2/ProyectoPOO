@@ -6,10 +6,6 @@
 #include <SFML/Graphics/Sprite.hpp>
 using namespace sf;
 
-/*En cuanto al disparo, este es el disparo basico, 
-Despues se tendria que hacer una version polimorfica y hacer varios disparos
-(como uno triple o de distinta forma)
-*/
 class Disparo {
 public:
 	Disparo(Texture &text, Vector2f pos, Vector2f dir);
