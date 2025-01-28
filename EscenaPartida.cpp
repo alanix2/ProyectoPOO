@@ -6,6 +6,7 @@
 #include "EscenaMenu.h"
 #include <sstream>
 #include <iomanip>
+#include <SFML/Graphics/Rect.hpp>
 using namespace std;
 using namespace sf;
 
@@ -35,6 +36,10 @@ bool fuera_de_la_pantalla(Disparo &d) {
 	return false;
 }
 
+bool colisiona(FloatRect h1, FloatRect h2){
+	return (h1.intersects(h2));
+}
+
 // FIN FUNCIONES AUXILIARES ->
 	
 void EscenaPartida::Actualizar () {
@@ -53,7 +58,7 @@ void EscenaPartida::Actualizar () {
 		z.Actualizar(m_jugador.verPosicion());
 	
 	atacarEnemigos();
-	atacarJugador();
+	comprobarAtaqueEnemigo();
 	
 	// Para remover disparos fuera de la pantalla
 	auto it = remove_if(m_disparos.begin(),m_disparos.end(),fuera_de_la_pantalla);
@@ -93,9 +98,9 @@ void EscenaPartida::ProcesarEvento (Event &e) {
 }
 
 
-void EscenaPartida::atacarJugador(){
+void EscenaPartida::comprobarAtaqueEnemigo(){
 	for(Zombie &z : m_zombies){
-		if(z.Colisiona(m_jugador.verPosicion())){
+		if(colisiona(z.verHitbox(), m_jugador.verHitbox())){
 			m_jugador.restarVida();
 			m_zombies.clear();
 		}
@@ -106,10 +111,8 @@ void EscenaPartida::atacarEnemigos(){
 		//si un disparo colisiona con un enemigo, los dos se eliminan
 		for(size_t d = 0; d < m_disparos.size();++d) {
 			auto disparo_actual = m_disparos.begin() + d;
-			
 			for(size_t z = 0; z < m_zombies.size();++z) {
 				auto zombie_actual = m_zombies.begin() + z;
-				
 				if (m_disparos[d].Colisiona(m_zombies[z].verPosicion())) {
 					m_jugador.sumarPuntos(m_zombies[z].verPuntos());
 					m_disparos.erase(disparo_actual);
@@ -117,8 +120,8 @@ void EscenaPartida::atacarEnemigos(){
 				}
 			}
 		}
-	}	
-		
+	}
+
 void EscenaPartida::actualizarTexto(){
 			//aqui luego se tendria que poner para actualizar las vidas
 			stringstream pts;
@@ -128,7 +131,7 @@ void EscenaPartida::actualizarTexto(){
 }
 
 void EscenaPartida::generarZombies ( ) {
-	if (m_zclock.getElapsedTime().asSeconds() >= 1.0f) {
+	if (m_zclock.getElapsedTime().asSeconds() >=0.5f) {
 		// Genera un zombie desde la posición de la puerta
 		m_zombies.emplace_back(m_zombie_textura, Vector2f(32,240));
 		m_zombies.emplace_back(m_zombie_textura, Vector2f(608,240));

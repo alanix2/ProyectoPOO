@@ -1,15 +1,19 @@
 #include "Zombie.h"
 #include <cmath>
 
-Zombie::Zombie (sf::Texture & t, sf::Vector2f pos) : EnemigoBase(t,pos,2.0f,50) {
+Zombie::Zombie (Texture & t, Vector2f pos) : EnemigoBase(t,pos,2.0f,50) {
 	m_sprite.setScale(0.5,0.5);
 }
 
-void Zombie::Actualizar (sf::Vector2f pos_jugador) {
+void Zombie::Actualizar ( ) {
+	
+}
+
+void Zombie::Actualizar (Vector2f pos_jugador) {
 	AtacarJugador(pos_jugador);
 }
 
-void Zombie::AtacarJugador (sf::Vector2f pos_jugador) {
+void Zombie::AtacarJugador (Vector2f pos_jugador) {
 	// Calcular la dirección hacia el jugador
 	sf::Vector2f dir = pos_jugador - m_sprite.getPosition();
 	
@@ -24,5 +28,16 @@ void Zombie::AtacarJugador (sf::Vector2f pos_jugador) {
 	
 	// Mover al zombie en esa dirección
 	m_sprite.move(dir * m_velocidad);
+}
+
+
+
+FloatRect Zombie::verHitbox ( ) {
+	FloatRect hitbox = m_sprite.getGlobalBounds();
+//	hitbox.left += 30.f;  // Reducir margen izquierdo
+//	hitbox.top += 30.f;   // Reducir margen superior
+	hitbox.width -= 25.f; // Hacer el hitbox más angosto
+	hitbox.height -= 25.f; // Hacer el hitbox más bajo
+	return hitbox;
 }
 

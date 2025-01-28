@@ -36,7 +36,7 @@ private:
 	// fuente y texto para ver score y vidas
 	Font m_font;
 	Text m_text[2];
-	void atacarJugador();
+	void comprobarAtaqueEnemigo();
 	void atacarEnemigos();
 	void actualizarTexto();
 	void generarZombies();
