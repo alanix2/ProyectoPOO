@@ -9,7 +9,7 @@
 using namespace std;
 using namespace sf;
 
-EscenaPartida::EscenaPartida(Juego &j) : Escena(j) {
+EscenaPartida::EscenaPartida(Juego &j) : Escena(j){
 	m_zombie_textura.loadFromFile("assets/enemy/zombiebasic.png");
 	m_bala_textura.loadFromFile("assets/player/bullet.png");
 	m_font.loadFromFile("assets/fonts/asap.ttf");
@@ -24,7 +24,7 @@ EscenaPartida::EscenaPartida(Juego &j) : Escena(j) {
 	m_text[0].setPosition(10,5);
 	m_text[0].setString("SCORE: 00000000");
 	m_text[1].setPosition(450,5);
-	m_text[1].setString("VIDAS: " + to_string(m_Jugador.verVidas()));
+	m_text[1].setString("VIDAS: " + to_string(m_jugador.verVidas()));
 }
 //<- FUNCIONES AUXILIARES
 
@@ -40,17 +40,17 @@ bool fuera_de_la_pantalla(Disparo &d) {
 void EscenaPartida::Actualizar () {
 	generarZombies();
 	
-	m_Jugador.Actualizar();
+	m_jugador.Actualizar();
 	
 	//para generar disparos
-	if (m_Jugador.debeDisparar())
-		m_disparos.push_back(m_Jugador.generarDisparo(m_bala_textura));
+	if (m_jugador.debeDisparar())
+		m_disparos.push_back(m_jugador.generarDisparo(m_bala_textura));
 	
 	for(Disparo &d : m_disparos)
 		d.Actualizar();
 	
 	for(Zombie &z : m_zombies)
-		z.Actualizar(m_Jugador.verPosicion());
+		z.Actualizar(m_jugador.verPosicion());
 	
 	atacarEnemigos();
 	atacarJugador();
@@ -60,9 +60,9 @@ void EscenaPartida::Actualizar () {
 	m_disparos.erase(it,m_disparos.end());
 	
 	//si pierde todas las vidas, se termina el juego
-	if(m_Jugador.verVidas() == 0){
-		m_juego.ActualizarScore(m_Jugador.verPuntos());
-		m_juego.cambiarEscena(new EscenaResultados(m_juego, m_Jugador.verPuntos()));
+	if(m_jugador.verVidas() == 0){
+		m_juego.ActualizarScore(m_jugador.verPuntos());
+		m_juego.cambiarEscena(new EscenaResultados(m_juego, m_jugador.verPuntos()));
 	}
 	
 	//para actualizar el texto con los puntos y vidas
@@ -71,7 +71,7 @@ void EscenaPartida::Actualizar () {
 
 void EscenaPartida::Dibujar (RenderWindow & w) {
 	w.clear(Color(0,0,0,255));
-	m_Jugador.Dibujar(w);
+	m_jugador.Dibujar(w);
 	
 	for(Disparo &d : m_disparos)
 		d.Dibujar(w);
@@ -87,7 +87,7 @@ void EscenaPartida::Dibujar (RenderWindow & w) {
 
 void EscenaPartida::ProcesarEvento (Event &e) {
 	if (e.type==Event::KeyPressed and e.key.code==Keyboard::Escape){
-		m_juego.ActualizarScore(m_Jugador.verPuntos());
+		m_juego.ActualizarScore(m_jugador.verPuntos());
 		m_juego.cambiarEscena(new EscenaMenu(m_juego));
 	}
 }
@@ -95,8 +95,8 @@ void EscenaPartida::ProcesarEvento (Event &e) {
 
 void EscenaPartida::atacarJugador(){
 	for(Zombie &z : m_zombies){
-		if(z.Colisiona(m_Jugador.verPosicion())){
-			m_Jugador.restarVida();
+		if(z.Colisiona(m_jugador.verPosicion())){
+			m_jugador.restarVida();
 			m_zombies.clear();
 		}
 	}
@@ -111,7 +111,7 @@ void EscenaPartida::atacarEnemigos(){
 				auto zombie_actual = m_zombies.begin() + z;
 				
 				if (m_disparos[d].Colisiona(m_zombies[z].verPosicion())) {
-					m_Jugador.sumarPuntos(m_zombies[z].verPuntos());
+					m_jugador.sumarPuntos(m_zombies[z].verPuntos());
 					m_disparos.erase(disparo_actual);
 					m_zombies.erase(zombie_actual);
 				}
@@ -122,9 +122,9 @@ void EscenaPartida::atacarEnemigos(){
 void EscenaPartida::actualizarTexto(){
 			//aqui luego se tendria que poner para actualizar las vidas
 			stringstream pts;
-			pts << "SCORE: " << setw(8) << setfill('0') << m_Jugador.verPuntos();
+			pts << "SCORE: " << setw(8) << setfill('0') << m_jugador.verPuntos();
 			m_text[0].setString(pts.str());
-			m_text[1].setString("VIDAS :" + to_string(m_Jugador.verVidas()));
+			m_text[1].setString("VIDAS :" + to_string(m_jugador.verVidas()));
 }
 
 void EscenaPartida::generarZombies ( ) {

@@ -4,13 +4,15 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include "EntidadDibujable.h"
 
 using namespace sf;
 using namespace std;
 
-class EnemigoBase {
+class EnemigoBase : public EntidadDibujable{
 public:
 	EnemigoBase(Texture &t, Vector2f pos, float vel, int puntos);
+	
 	virtual void Actualizar(Vector2f pos_jugador);
 	void Dibujar(RenderWindow &w);
 	virtual void AtacarJugador(Vector2f pos_jugador) = 0;

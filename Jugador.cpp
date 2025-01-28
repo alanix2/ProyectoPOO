@@ -5,10 +5,12 @@ using namespace std;
 using namespace sf;
 
 
-Jugador::Jugador() : PersonajeBase("assets/player/SpriteSheetGuns.png", 2.5f) {
-	ConfigurarControles();
+Jugador::Jugador() {
+	m_texture.loadFromFile("assets/player/player.png");
+	m_sprite.setTexture(m_texture);
 	m_sprite.setTextureRect(IntRect(0,48,48,48));
 	m_sprite.setOrigin((m_texture.getSize().x/2)/2,(m_texture.getSize().y/2)/2);
+	ConfigurarControles();
 	m_sprite.setPosition(320,240);
 }
 
@@ -17,10 +19,6 @@ void Jugador::Actualizar() {
 	rotarSprite();
 }
 
-/* 
-seccion de disparo, habria que ver si esto se podria hacer de mejor manera
- en vez de hacer tantos metodos 
-*/
 
 bool Jugador::debeDisparar ( ) {
 	if (m_clock.getElapsedTime().asMilliseconds()<300){
@@ -90,12 +88,13 @@ void Jugador::mover ( ) {
 	}
 	
 	// Normalizar el vector de movimiento (para que el jugador se mueva a la misma velocidad en todas las direcciones)
+	// Esto es porque normalmente cuando movemos a un personaje diagonalmente, la velocidad suele ser mayor, este codigo arregla eso
 	if (movimiento.x != 0.0f || movimiento.y != 0.0f) {
 		float longitud = sqrt(movimiento.x * movimiento.x + movimiento.y * movimiento.y);
 		movimiento /= longitud;  // Normalizar
 		
 		// Mover al jugador con la velocidad
-		m_sprite.move(movimiento * verVel());
+		m_sprite.move(movimiento * m_velocidad);
 	}
 }
 

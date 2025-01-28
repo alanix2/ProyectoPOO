@@ -5,11 +5,26 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include "Disparo.h"
-#include "PersonajeBase.h"
+#include "EntidadDibujable.h"
 #include <string>
+
 using namespace sf;
 using namespace std;
-class Jugador : public PersonajeBase {
+
+class Jugador : public EntidadDibujable {
+public:
+	Jugador();
+	void Actualizar() override;
+	bool debeDisparar();
+ 	Disparo generarDisparo(Texture &text);
+	void ConfigurarControles();
+	void restarVida();
+	void sumarVida();
+	int verVidas();
+	int verPuntos();
+	void sumarPuntos(int n);
+private:
+	Texture m_texture;
 	Clock m_clock;
 	//opcional? luego podriamos poner controles con joystick
 	Keyboard::Key m_arr,m_aba,m_izq,m_der; //controles de movimiento
@@ -19,18 +34,7 @@ class Jugador : public PersonajeBase {
 	void rotarSprite();
 	int PuntajeActual = 0;
 	int m_vidas = 3;
-public:
-	Jugador();
-	void Actualizar();
-	bool debeDisparar();
- 	Disparo generarDisparo(Texture &text);
-	void ConfigurarControles();
-	void restarVida();
-	void sumarVida();
-	int verVidas();
-	int verPuntos();
-	void sumarPuntos(int n);
-	
+	float m_velocidad = 2.0f;
 };
 
 #endif

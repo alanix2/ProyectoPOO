@@ -23,7 +23,7 @@ public:
 	void Dibujar(RenderWindow &w) override;
 	void ProcesarEvento (Event &e) override;
 private:
-	Jugador m_Jugador;
+	Jugador m_jugador;
 	
 	Texture m_zombie_textura;
 	vector<Zombie> m_zombies;
