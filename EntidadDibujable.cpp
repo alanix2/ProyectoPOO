@@ -1,4 +1,5 @@
 #include "EntidadDibujable.h"
+#include <SFML/Graphics/Rect.hpp>
 
 EntidadDibujable::EntidadDibujable ( ) {
 	
@@ -12,7 +13,8 @@ EntidadDibujable::EntidadDibujable (Texture & t) {
 EntidadDibujable::EntidadDibujable (Texture & t, IntRect TexturePortion) {
 	m_sprite.setTexture(t);
 	m_sprite.setTextureRect(TexturePortion);
-	m_sprite.setOrigin((t.getSize().x/2)/2,(t.getSize().y/2)/2);
+	FloatRect bounds = m_sprite.getLocalBounds();
+	m_sprite.setOrigin(bounds.width/2.0f, bounds.height/2.0f);
 }
 
 void EntidadDibujable::Dibujar (RenderWindow & w) {

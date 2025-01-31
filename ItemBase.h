@@ -1,21 +1,21 @@
 #ifndef ITEMBASE_H
 #define ITEMBASE_H
+#include "EntidadDibujable.h"
 #include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Vector2.hpp>
 #include "Jugador.h"
-#include <SFML/Graphics/RenderWindow.hpp>
 
-class ItemBase {
+using namespace sf;
+using namespace std;
+
+
+class ItemBase : public EntidadDibujable {
 public:
-	ItemBase();
-	void RecogerItem(Jugador &j);
-	void Dibujar(RenderWindow &w);
-	void Actualizar();
-	Vector2f verPosicion();
+	ItemBase(Texture &t, IntRect rect, Vector2f pos);
+	virtual void EfectoAlRecoger(Jugador &j) = 0;
+	
 private:
-	Texture m_texture;
-	Sprite m_sprite;
-	int Puntos;
 	
 };
 

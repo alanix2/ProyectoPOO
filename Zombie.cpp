@@ -34,10 +34,6 @@ void Zombie::AtacarJugador (Vector2f pos_jugador) {
 
 FloatRect Zombie::verHitbox ( ) {
 	FloatRect hitbox = m_sprite.getGlobalBounds();
-//	hitbox.left += 30.f;  // Reducir margen izquierdo
-//	hitbox.top += 30.f;   // Reducir margen superior
-	hitbox.width -= 25.f; // Hacer el hitbox más angosto
-	hitbox.height -= 25.f; // Hacer el hitbox más bajo
 	return hitbox;
 }
 

@@ -5,8 +5,8 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include "Disparo.h"
-#include "EntidadDibujable.h"
 #include <string>
+#include "EntidadDibujable.h"
 
 using namespace sf;
 using namespace std;

@@ -8,7 +8,7 @@ using namespace sf;
 Jugador::Jugador() {
 	m_texture.loadFromFile("assets/player/player.png");
 	m_sprite.setTexture(m_texture);
-	m_sprite.setTextureRect(IntRect(0,48,48,48));
+	m_sprite.setTextureRect(IntRect(0,0,32,16));
 	m_sprite.setOrigin((m_texture.getSize().x/2)/2,(m_texture.getSize().y/2)/2);
 	ConfigurarControles();
 	m_sprite.setPosition(320,240);
@@ -25,7 +25,7 @@ bool Jugador::debeDisparar ( ) {
 		return false;
 	}
 	if (not sePresionoDisparo()){
-		m_sprite.setTextureRect(IntRect(0,48,48,48));
+		m_sprite.setTextureRect(IntRect(0,0,32,16));
 		return false;
 	}
 	m_clock.restart();
@@ -33,7 +33,7 @@ bool Jugador::debeDisparar ( ) {
 }
 
 Disparo Jugador::generarDisparo (Texture &text) {
-	m_sprite.setTextureRect(IntRect(48,48,48,48));
+//	m_sprite.setTextureRect(IntRect(48,48,48,48));
 	Vector2f p = m_sprite.getPosition();
 	float ang = m_sprite.getRotation()*M_PI/180;
 	Vector2f d(cos(ang),sin(ang));
