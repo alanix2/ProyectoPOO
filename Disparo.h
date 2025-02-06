@@ -4,18 +4,18 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include "EntidadDibujable.h"
 using namespace sf;
 
-class Disparo {
+class Disparo : public EntidadDibujable {
 public:
-	Disparo(Texture &text, Vector2f pos, Vector2f dir);
-	void Actualizar();
-	void Dibujar(RenderWindow &w);
-	bool Colisiona(Vector2f pos);
-	Vector2f verPosicion();
+	Disparo(Texture &t, Vector2f pos, Vector2f dir);
+	virtual bool Colisiona(Vector2f pos) = 0;
+	virtual ~Disparo() {}
+protected:
+	Vector2f m_velocidad;
 private:
-	Sprite m_sprite;
-	Vector2f m_vel;
+
 };
 
 #endif

@@ -96,5 +96,3 @@ void Juego::ActualizarScore (int nuevo_score) {
 Juego::~Juego ( ) {
 	delete m_EscenaActual;
 }
-
-

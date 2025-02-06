@@ -18,6 +18,7 @@ public:
 	void Dibujar(RenderWindow &w);
 	virtual FloatRect verHitbox();
 	Vector2f verPosicion();
+	virtual ~EntidadDibujable(){}
 protected:
 	Sprite m_sprite;
 private: 

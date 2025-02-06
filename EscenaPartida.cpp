@@ -33,12 +33,13 @@ EscenaPartida::EscenaPartida(Juego &j) : Escena(j){
 }
 //<- FUNCIONES AUXILIARES
 
-bool fuera_de_la_pantalla(Disparo &d) {
-	Vector2f p = d.verPosicion();
+bool fuera_de_la_pantalla(unique_ptr<Disparo> &d) {
+	Vector2f p = d->verPosicion();
 	if (p.x<0 or p.x>640) return true;
 	if (p.y<0 or p.y>480) return true;
 	return false;
 }
+// ->
 
 bool colisiona(FloatRect h1, FloatRect h2){
 	return (h1.intersects(h2));
@@ -47,19 +48,24 @@ bool colisiona(FloatRect h1, FloatRect h2){
 // FIN FUNCIONES AUXILIARES ->
 	
 void EscenaPartida::Actualizar () {
+	
 	generarZombies();
 	
 	m_jugador.Actualizar();
 	
 	//para generar disparos
-	if (m_jugador.debeDisparar())
+	if (m_jugador.debeDisparar()){
 		m_disparos.push_back(m_jugador.generarDisparo(m_bala_textura));
+		m_jugador.ReestablecerTemporizadorDisparo();
+	}
 	
+	for(auto& d : m_disparos){
+		if(d)
+			d->Actualizar();
+	}
+
 	for(ItemPuntos &i : test)
 		i.Actualizar();
-	
-	for(Disparo &d : m_disparos)
-		d.Actualizar();
 	
 	for(Zombie &z : m_zombies)
 		z.Actualizar(m_jugador.verPosicion());
@@ -86,8 +92,9 @@ void EscenaPartida::Actualizar () {
 void EscenaPartida::Dibujar (RenderWindow & w) {
 	w.clear(Color(0,0,0,255));
 	
-	for(Disparo &d : m_disparos)
-		d.Dibujar(w);
+	for(auto &d : m_disparos)
+		if(d)
+			d->Dibujar(w);
 
 	for(ItemPuntos &i : test)
 		i.Dibujar(w);
@@ -119,22 +126,23 @@ void EscenaPartida::comprobarAtaqueEnemigo(){
 }
 	
 void EscenaPartida::comprobarAtacarEnemigos(){
-		//si un disparo colisiona con un enemigo, los dos se eliminan
-		for(size_t d = 0; d < m_disparos.size();++d) {
-			auto disparo_actual = m_disparos.begin() + d;
-			for(size_t z = 0; z < m_zombies.size();++z) {
-				auto zombie_actual = m_zombies.begin() + z;
-				if (m_disparos[d].Colisiona(m_zombies[z].verPosicion())) {
-					m_jugador.sumarPuntos(m_zombies[z].verPuntos());
-					
-					test.push_back(ItemPuntos(m_item_textura,m_zombies[z].verPosicion()));
-					
-					m_disparos.erase(disparo_actual);
-					m_zombies.erase(zombie_actual);
-				}
+	//si un disparo colisiona con un enemigo, los dos se eliminan
+	for(size_t d = 0; d < m_disparos.size();++d) {
+		auto disparo_actual = m_disparos.begin() + d;
+		for(size_t z = 0; z < m_zombies.size();++z) {
+			auto zombie_actual = m_zombies.begin() + z;
+			//parece que el juego crashea a veces en esta parte, hay que arreglarlo
+			if (m_disparos[d]->Colisiona(m_zombies[z].verPosicion()) ) {
+				m_jugador.sumarPuntos(m_zombies[z].verPuntos());
+				
+				test.push_back(ItemPuntos(m_item_textura,m_zombies[z].verPosicion()));
+				
+				m_disparos.erase(disparo_actual);
+				m_zombies.erase(zombie_actual);
 			}
 		}
 	}
+}
 
 void EscenaPartida::actualizarTexto(){
 			//aqui luego se tendria que poner para actualizar las vidas
@@ -172,4 +180,3 @@ void EscenaPartida::Perder ( ) {
 	m_disparos.clear();
 	test.clear();
 }
-

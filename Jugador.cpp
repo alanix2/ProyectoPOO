@@ -1,9 +1,10 @@
 #include "Jugador.h"
 #include <SFML/Window/Keyboard.hpp>
 #include <cmath>
+#include "DisparoNormal.h"
+
 using namespace std;
 using namespace sf;
-
 
 Jugador::Jugador() {
 	m_texture.loadFromFile("assets/player/player.png");
@@ -19,35 +20,66 @@ void Jugador::Actualizar() {
 	rotarSprite();
 }
 
-
-bool Jugador::debeDisparar ( ) {
-	if (m_clock.getElapsedTime().asMilliseconds()<300){
-		return false;
+unique_ptr<Disparo> Jugador::generarDisparo (Texture &t) {
+	Vector2f pos = m_sprite.getPosition();
+	float ang = m_sprite.getRotation() * static_cast<float>(M_PI) / 180.f;
+	Vector2f dir(cos(ang), sin(ang));
+	
+	switch(m_tipoDisparoActual) {
+		case TipoDisparo::Normal:
+			return make_unique<DisparoNormal>(t, pos + 25.f * dir, dir);
+		//case mas tipos...
+		default:
+			nullptr;
 	}
-	if (not sePresionoDisparo()){
-		m_sprite.setTextureRect(IntRect(0,0,32,16));
-		return false;
-	}
-	m_clock.restart();
-	return true;
 }
 
-Disparo Jugador::generarDisparo (Texture &text) {
-//	m_sprite.setTextureRect(IntRect(48,48,48,48));
-	Vector2f p = m_sprite.getPosition();
-	float ang = m_sprite.getRotation()*M_PI/180;
-	Vector2f d(cos(ang),sin(ang));
-	return Disparo(text, p+25.f*d,d);
+bool Jugador::debeDisparar ( ) {
+	return (m_temporizadorDisparo.getElapsedTime() >= m_intervaloDisparo && sePresionoDisparo());
 }
 
 bool Jugador::sePresionoDisparo ( ) {
 	return Keyboard::isKeyPressed(m_disp_aba) or 
-		Keyboard::isKeyPressed(m_disp_arr) or
-		Keyboard::isKeyPressed(m_disp_izq) or
-		Keyboard::isKeyPressed(m_disp_der);
+	Keyboard::isKeyPressed(m_disp_arr) or
+	Keyboard::isKeyPressed(m_disp_izq) or
+	Keyboard::isKeyPressed(m_disp_der);
+}	
+
+	
+void Jugador::ReestablecerTemporizadorDisparo ( ) {
+	m_temporizadorDisparo.restart();
+}
+	
+void Jugador::CambiarArma (TipoDisparo nuevaArma) {
+	m_tipoDisparoActual = nuevaArma;
+	// Configurar parámetros específicos del arma
+	switch(nuevaArma) {
+		case TipoDisparo::Normal:
+			m_intervaloDisparo = sf::milliseconds(200);
+			break;
+	}
 }
 
-/*fin seccion disparo*/
+void Jugador::restarVida ( ) {
+	m_vidas--;
+	m_sprite.setPosition(320,240);
+}
+	
+void Jugador::sumarVida ( ) {
+	m_vidas++;
+}
+	
+int Jugador::verVidas ( ) {
+	return m_vidas;
+}
+	
+void Jugador::sumarPuntos (int n) {
+	PuntajeActual+=n;
+}
+	
+int Jugador::verPuntos ( ) {
+	return PuntajeActual;
+}
 
 void Jugador::ConfigurarControles ( ) {
 	//asignacion de los controles, despues se tendria que hacer leyendo desde un archivo.
@@ -60,14 +92,6 @@ void Jugador::ConfigurarControles ( ) {
 	m_disp_aba = Keyboard::K;
 	m_disp_izq = Keyboard::J;
 	m_disp_der = Keyboard::L;
-}
-
-int Jugador::verPuntos ( ) {
-	return PuntajeActual;
-}
-
-void Jugador::sumarPuntos (int n) {
-	PuntajeActual+=n;
 }
 
 void Jugador::mover ( ) {
@@ -120,20 +144,3 @@ void Jugador::rotarSprite ( ) {
 		m_sprite.setRotation(angulo);
 	}
 }
-
-void Jugador::restarVida ( ) {
-	m_vidas--;
-	//cuando pierde una vida vuelve a la posicion inicial. luego se tendria que
-	//implementar mejor, como reiniciando el nivel
-	m_sprite.setPosition(320,240);
-	
-}
-
-void Jugador::sumarVida ( ) {
-	m_vidas++;
-}
-
-int Jugador::verVidas ( ) {
-	return m_vidas;
-}
-

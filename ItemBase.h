@@ -14,6 +14,7 @@ class ItemBase : public EntidadDibujable {
 public:
 	ItemBase(Texture &t, IntRect rect, Vector2f pos);
 	virtual void EfectoAlRecoger(Jugador &j) = 0;
+	virtual ~ItemBase() {}
 	
 private:
 	

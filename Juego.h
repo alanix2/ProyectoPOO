@@ -3,6 +3,7 @@
 #include "Escena.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <string>
+#include <SFML/System/Clock.hpp>
 using namespace std;
 using namespace sf;
 
@@ -24,6 +25,9 @@ private:
 	void guardarHighscore();
 	RenderWindow m_win;
 	Escena *m_EscenaActual = nullptr, *m_ProximaEscena = nullptr; //Escena actual y proxima escena
+	
+	float deltaTime;
+	Clock reloj;
 	
 	//luego habria que poner los 10 mayores puntajes junto a las primeras 3 iniciales.
 	int highscore = 0;

@@ -16,6 +16,7 @@ public:
 	int verPuntos();
 	float verVelocidad();
 	//faltaria algo para hacer que al morir genere un item pero eso no se si iria aqui o en otro lugar
+	virtual ~EnemigoBase(){}
 	
 protected:
 	float m_velocidad;

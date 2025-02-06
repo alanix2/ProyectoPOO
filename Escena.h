@@ -12,6 +12,7 @@ public:
 	virtual void Actualizar() = 0;
 	virtual void Dibujar(RenderWindow &w) = 0;
 	virtual void ProcesarEvento(Event &e){}
+	virtual ~Escena() {}
 protected:
 	Juego &m_juego;
 
