@@ -3,9 +3,9 @@
 #include "Disparo.h"
 #include "Escena.h"
 #include "Juego.h"
-#include "Zombie.h"
+#include "EnemigoBase.h"
 #include "Jugador.h"
-#include "ItemPuntos.h"
+#include "ItemBase.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -37,15 +37,15 @@ private:
 	
 	//textura de los items
 	Texture m_item_textura;
-	vector <ItemPuntos> test;
+	vector<unique_ptr<ItemBase>> m_items;
 	
 	//textura de zombies, vector con zombies, y el reloj para generarlos
-	Texture m_zombie_textura;
-	vector<Zombie> m_zombies;
+	Texture m_enemigo_textura;
+	vector<unique_ptr<EnemigoBase>> m_enemigos;
 	Clock m_zclock;
 	
 	//Vector de disparos y su textura
-	vector< unique_ptr<Disparo> > m_disparos;
+	vector<unique_ptr<Disparo>> m_disparos;
 	Texture m_bala_textura;
 	
 	// fuente y texto para ver score y vidas

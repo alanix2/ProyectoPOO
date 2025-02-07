@@ -30,7 +30,7 @@ unique_ptr<Disparo> Jugador::generarDisparo (Texture &t) {
 			return make_unique<DisparoNormal>(t, pos + 25.f * dir, dir);
 		//case mas tipos...
 		default:
-			nullptr;
+			return nullptr;
 	}
 }
 
