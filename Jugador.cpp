@@ -6,7 +6,7 @@
 using namespace std;
 using namespace sf;
 
-Jugador::Jugador() {
+Jugador::Jugador() : m_armaEquipada(make_unique<ArmaBase>()){
 	m_texture.loadFromFile("assets/player/player.png");
 	m_sprite.setTexture(m_texture);
 	m_sprite.setTextureRect(IntRect(0,0,32,16));
@@ -18,24 +18,10 @@ Jugador::Jugador() {
 void Jugador::Actualizar() {
 	mover();
 	rotarSprite();
-}
-
-unique_ptr<Disparo> Jugador::generarDisparo (Texture &t) {
-	Vector2f pos = m_sprite.getPosition();
-	float ang = m_sprite.getRotation() * static_cast<float>(M_PI) / 180.f;
-	Vector2f dir(cos(ang), sin(ang));
+	m_armaEquipada->Actualizar();
+	if(sePresionoDisparo())
+		m_armaEquipada->Disparar(m_sprite.getPosition(), m_sprite.getRotation());
 	
-	switch(m_tipoDisparoActual) {
-		case TipoDisparo::Normal:
-			return make_unique<DisparoNormal>(t, pos + 25.f * dir, dir);
-		//case mas tipos...
-		default:
-			return nullptr;
-	}
-}
-
-bool Jugador::debeDisparar ( ) {
-	return (m_temporizadorDisparo.getElapsedTime() >= m_intervaloDisparo && sePresionoDisparo());
 }
 
 bool Jugador::sePresionoDisparo ( ) {
@@ -45,19 +31,8 @@ bool Jugador::sePresionoDisparo ( ) {
 	Keyboard::isKeyPressed(m_disp_der);
 }	
 
-	
-void Jugador::ReestablecerTemporizadorDisparo ( ) {
-	m_temporizadorDisparo.restart();
-}
-	
-void Jugador::CambiarArma (TipoDisparo nuevaArma) {
-	m_tipoDisparoActual = nuevaArma;
-	// Configurar parámetros específicos del arma
-	switch(nuevaArma) {
-		case TipoDisparo::Normal:
-			m_intervaloDisparo = sf::milliseconds(200);
-			break;
-	}
+void Jugador::CambiarArma (int TipoArma) {
+
 }
 
 void Jugador::restarVida ( ) {
@@ -144,3 +119,9 @@ void Jugador::rotarSprite ( ) {
 		m_sprite.setRotation(angulo);
 	}
 }
+
+void Jugador::Dibujar (RenderWindow & w) {
+	w.draw(m_sprite);
+	m_armaEquipada->Dibujar(w);
+}
+

@@ -15,7 +15,7 @@ public:
 	EntidadDibujable(Texture &t);
 	EntidadDibujable(Texture &t, IntRect TexturePortion);
 	virtual void Actualizar() = 0;
-	void Dibujar(RenderWindow &w);
+	virtual void Dibujar(RenderWindow &w);
 	virtual FloatRect verHitbox();
 	Vector2f verPosicion();
 	virtual ~EntidadDibujable(){}

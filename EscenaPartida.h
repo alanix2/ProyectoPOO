@@ -42,12 +42,8 @@ private:
 	//textura de zombies, vector con zombies, y el reloj para generarlos
 	Texture m_enemigo_textura;
 	vector<unique_ptr<EnemigoBase>> m_enemigos;
-	Clock m_zclock;
-	
-	//Vector de disparos y su textura
-	vector<unique_ptr<Disparo>> m_disparos;
-	Texture m_bala_textura;
-	
+	Clock m_zombie_spawn_clock;
+		
 	// fuente y texto para ver score y vidas
 	Font m_font;
 	Text m_text[2];

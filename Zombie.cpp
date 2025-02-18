@@ -37,16 +37,15 @@ void Zombie::AtacarJugador (Vector2f pos_jugador) {
 
 
 unique_ptr<ItemBase> Zombie::GenerarItem (Texture & t) {
+	//una verga esta cosa deberia de haber una mejor manera xd
 	static random_device rd;
 	static mt19937 gen(rd());
-	static discrete_distribution<> distrib{50, 30, 20}; // Probabilidades
+	static discrete_distribution<> distrib{80, 20}; // Probabilidades
 	
 	switch(distrib(gen)) {
 	case 0: // Dinero
 		return make_unique<ItemPuntos>(t, m_sprite.getPosition());
-	case 1: // Arma
-		return make_unique<ItemArma>(t, m_sprite.getPosition());
-	case 2: // Corazón
+	case 1: // Corazón
 		return make_unique<ItemVidaExtra>(t, m_sprite.getPosition());
 	default:
 		return nullptr;

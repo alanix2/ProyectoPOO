@@ -14,6 +14,7 @@ public:
 	void EfectoAlRecoger (Jugador & j);
 	void Actualizar ( ) override ;
 private:
+	//int m_TipoArma;
 };
 
 #endif
