@@ -3,6 +3,8 @@
 #include "EntidadDibujable.h"
 #include "Disparo.h"
 #include "Enums.h"
+#include "ArmaBase.h"
+#include "ArmaTriple.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -11,7 +13,6 @@
 #include <SFML/System/Time.hpp>
 #include <string>
 #include <memory>
-#include "ArmaBase.h"
 
 using namespace sf;
 using namespace std;
@@ -21,7 +22,7 @@ public:
 	Jugador();
 	void Actualizar() override;	
 	void Dibujar(RenderWindow &w) override;
-	void CambiarArma(int TipoArma);
+	void CambiarArma(unique_ptr<Arma> nuevaArma);
 	
 	void restarVida();
 	void sumarVida();

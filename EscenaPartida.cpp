@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <memory>
 #include <SFML/Graphics/Rect.hpp>
 #include "EscenaPartida.h"
 #include "Juego.h"
@@ -9,6 +10,8 @@
 #include "EscenaMenu.h"
 #include "ItemPuntos.h"
 #include "Zombie.h"
+#include "ArmaBase.h"
+#include "ItemArmaTriple.h"
 using namespace std;
 using namespace sf;
 
@@ -16,7 +19,7 @@ EscenaPartida::EscenaPartida(Juego &j) : Escena(j){
 	m_enemigo_textura.loadFromFile("assets/enemy/zombiebasic.png");
 	m_font.loadFromFile("assets/fonts/asap.ttf");
 	m_item_textura.loadFromFile("assets/item/Items.png");
-	m_items.push_back(make_unique<ItemPuntos>(m_item_textura, Vector2f(300,200)));
+	m_items.push_back(make_unique<ItemArmaTriple>(m_item_textura, Vector2f(300,200)));
 	
 	for(Text &t : m_text){
 		t.setFont(m_font);
@@ -130,4 +133,5 @@ void EscenaPartida::comprobarRecogerItem ( ) {
 
 void EscenaPartida::Perder ( ) {
 	m_jugador.restarVida();
+	m_jugador.CambiarArma(make_unique<ArmaBase>());
 }

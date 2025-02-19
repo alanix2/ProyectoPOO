@@ -1,7 +1,7 @@
 #include "Jugador.h"
 #include <SFML/Window/Keyboard.hpp>
 #include <cmath>
-#include "DisparoNormal.h"
+#include <iostream>
 
 using namespace std;
 using namespace sf;
@@ -19,9 +19,9 @@ void Jugador::Actualizar() {
 	mover();
 	rotarSprite();
 	m_armaEquipada->Actualizar();
-	if(sePresionoDisparo())
+	if(sePresionoDisparo()){
 		m_armaEquipada->Disparar(m_sprite.getPosition(), m_sprite.getRotation());
-	
+	}
 }
 
 bool Jugador::sePresionoDisparo ( ) {
@@ -31,13 +31,13 @@ bool Jugador::sePresionoDisparo ( ) {
 	Keyboard::isKeyPressed(m_disp_der);
 }	
 
-void Jugador::CambiarArma (int TipoArma) {
-
+void Jugador::CambiarArma (unique_ptr<Arma> nuevaArma) {
+	m_armaEquipada = move(nuevaArma);
 }
 
 void Jugador::restarVida ( ) {
+	m_sprite.setPosition(320,240); //temporal
 	m_vidas--;
-	m_sprite.setPosition(320,240);
 }
 	
 void Jugador::sumarVida ( ) {

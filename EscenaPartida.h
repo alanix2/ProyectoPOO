@@ -30,7 +30,10 @@ private:
 	void comprobarAtacarEnemigos();
 	void comprobarRecogerItem();
 	void actualizarTexto();
+	
+	//temporal
 	void generarZombies();
+	
 	void Perder();
 	
 	Jugador m_jugador;

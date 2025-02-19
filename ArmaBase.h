@@ -12,7 +12,6 @@ public:
 	void Actualizar() override;
 	void Dibujar(RenderWindow &w) override;
 	void Disparar(Vector2f pos, float rotation) override;
-	bool debeDisparar();
 private:
 	vector<DisparoNormal> m_balas;
 	
