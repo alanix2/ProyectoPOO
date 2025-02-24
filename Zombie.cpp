@@ -2,7 +2,6 @@
 #include <cmath>
 #include <random>
 #include "ItemPuntos.h"
-#include "ItemArma.h"
 #include "ItemVidaExtra.h"
 using namespace std;
 
@@ -26,7 +25,7 @@ void Zombie::AtacarJugador (Vector2f pos_jugador) {
 	m_sprite.setRotation(std::atan2(dir.y,dir.x)*180/M_PI);
 	
 	// Normalizar el vector de dirección
-	float longitud = std::sqrt(dir.x * dir.x + dir.y * dir.y);
+	float longitud = sqrt(dir.x * dir.x + dir.y * dir.y);
 	if (longitud != 0) {
 		dir /= longitud;  // Normalizamos el vector
 	}
@@ -52,13 +51,8 @@ unique_ptr<ItemBase> Zombie::GenerarItem (Texture & t) {
 	}
 }
 
-
 FloatRect Zombie::verHitbox ( ) {
 	FloatRect hitbox = m_sprite.getGlobalBounds();
 	return hitbox;
-}
-
-bool Zombie::lograAtacarJugador (Vector2f pos_jugador) {
-	return m_sprite.getGlobalBounds().contains(pos_jugador);
 }
 

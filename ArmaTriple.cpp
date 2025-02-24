@@ -7,6 +7,7 @@ ArmaTriple::ArmaTriple() : Arma(200) {
 }
 
 void ArmaTriple::Actualizar ( ) {
+
 	for(auto &b : m_balas1){
 		b.Actualizar();
 	}
@@ -46,9 +47,9 @@ void ArmaTriple::Disparar (Vector2f pos, float rotation) {
 		Vector2f dir2(cos(ang2), sin(ang2));
 		Vector2f dir3(cos(ang3), sin(ang3));
 		
-		m_balas1.push_back(DisparoNormal(m_bala_textura, pos + 25.f * dir1, dir1));
-		m_balas2.push_back(DisparoNormal(m_bala_textura, pos + 25.f * dir2, dir2));
-		m_balas3.push_back(DisparoNormal(m_bala_textura, pos + 25.f * dir3, dir3));
+		m_balas1.push_back(DisparoTriple(m_bala_textura, pos + 25.f * dir1, dir1));
+		m_balas2.push_back(DisparoTriple(m_bala_textura, pos + 25.f * dir2, dir2));
+		m_balas3.push_back(DisparoTriple(m_bala_textura, pos + 25.f * dir3, dir3));
 		m_temporizadorDisparo.restart();
 	}
 }

@@ -41,8 +41,10 @@ private:
 	Keyboard::Key m_arr,m_aba,m_izq,m_der; //controles de movimiento
 	Keyboard::Key m_disp_arr, m_disp_aba, m_disp_izq, m_disp_der; //controles de disparo
 	
-	int PuntajeActual = 0;
-	int m_vidas = 3;
+	//los puntos y las vidas se podrian mover a otra clase, para que se gestionen mejor.
+	int m_puntajeActual = 0;
+	int m_vidas = 1;
+	
 	float m_velocidad = 2.0f;
 };
 

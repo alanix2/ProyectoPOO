@@ -1,17 +1,9 @@
 #include "DisparoNormal.h"
-#include <cmath>
-using namespace std;
 
-
-DisparoNormal::DisparoNormal (Texture & t, Vector2f pos, Vector2f dir, float vel) : Disparo(t,pos,dir) {
-	m_velocidad = dir * vel;
+DisparoNormal::DisparoNormal (Texture & t, Vector2f pos, Vector2f dir) : Disparo(t,IntRect(256,160,16,16),pos,dir, 3.0f) {
+	
 }
 
 void DisparoNormal::Actualizar () {
 	m_sprite.move(m_velocidad);
-}
-
-bool DisparoNormal::Colisiona (Vector2f pos) {
-	Vector2f v = m_sprite.getPosition()-pos;
-	return sqrt(v.x*v.x+v.y*v.y)<25;
 }

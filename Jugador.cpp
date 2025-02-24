@@ -36,7 +36,6 @@ void Jugador::CambiarArma (unique_ptr<Arma> nuevaArma) {
 }
 
 void Jugador::restarVida ( ) {
-	m_sprite.setPosition(320,240); //temporal
 	m_vidas--;
 }
 	
@@ -49,11 +48,11 @@ int Jugador::verVidas ( ) {
 }
 	
 void Jugador::sumarPuntos (int n) {
-	PuntajeActual+=n;
+	m_puntajeActual+=n;
 }
 	
 int Jugador::verPuntos ( ) {
-	return PuntajeActual;
+	return m_puntajeActual;
 }
 
 void Jugador::ConfigurarControles ( ) {

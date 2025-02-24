@@ -4,6 +4,7 @@
 #include <sstream>
 #include <memory>
 #include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Vector2.hpp>
 #include "EscenaPartida.h"
 #include "Juego.h"
 #include "EscenaResultados.h"
@@ -36,12 +37,18 @@ EscenaPartida::EscenaPartida(Juego &j) : Escena(j){
 	
 }
 
-
+/* 
+funcion auxiliar para ver si el rectangulo que rodea a dos sprites
+se intersectan (no siempre es util porque a veces el rectangulo
+suele ser mas grande que el propio sprite)
+*/
 bool colisiona(FloatRect h1, FloatRect h2){
 	return (h1.intersects(h2));
 }
-
-// FIN FUNCIONES AUXILIARES ->
+bool colisiona(Vector2f pos1, Vector2f pos2){
+	Vector2f v = pos1-pos2;
+	return sqrt(v.x*v.x+v.y*v.y)<25;
+}	
 	
 void EscenaPartida::Actualizar () {
 	
@@ -59,9 +66,7 @@ void EscenaPartida::Actualizar () {
 	comprobarAtaqueEnemigo();
 	comprobarRecogerItem();
 	
-	// Para remover disparos fuera de la pantalla
-	
-	//si pierde todas las vidas, se termina el juego
+	//si pierde todas las vidas, se termina el juego (se podria extraer a una funcion privada)
 	if(m_jugador.verVidas() == 0){
 		m_juego.ActualizarScore(m_jugador.verPuntos());
 		m_juego.cambiarEscena(new EscenaResultados(m_juego, m_jugador.verPuntos()));
@@ -98,7 +103,7 @@ void EscenaPartida::ProcesarEvento (Event &e) {
 
 void EscenaPartida::comprobarAtaqueEnemigo(){
 	for(auto &e : m_enemigos){
-		if(e->lograAtacarJugador(m_jugador.verPosicion())){
+		if(colisiona(e->verHitbox(), m_jugador.verHitbox())){
 			Perder();
 		}
 	}
@@ -132,6 +137,7 @@ void EscenaPartida::comprobarRecogerItem ( ) {
 }
 
 void EscenaPartida::Perder ( ) {
+	//podria ser mejor, a lo mejor cuando se agreguen niveles.
 	m_jugador.restarVida();
 	m_jugador.CambiarArma(make_unique<ArmaBase>());
 }

@@ -5,12 +5,12 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include "EntidadDibujable.h"
+#include <SFML/Graphics/Rect.hpp>
 using namespace sf;
 
 class Disparo : public EntidadDibujable {
 public:
-	Disparo(Texture &t, Vector2f pos, Vector2f dir);
-	virtual bool Colisiona(Vector2f pos) = 0;
+	Disparo(Texture &t, IntRect TexturePortion, Vector2f pos, Vector2f dir, float vel);
 	virtual ~Disparo() {}
 protected:
 	Vector2f m_velocidad;
