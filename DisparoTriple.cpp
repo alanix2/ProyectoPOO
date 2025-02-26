@@ -1,6 +1,6 @@
 #include "DisparoTriple.h"
 
-DisparoTriple::DisparoTriple (Texture & t, Vector2f pos, Vector2f dir) : Disparo(t,IntRect(0,17,16,16),pos,dir,5.0f){
+DisparoTriple::DisparoTriple (Texture & t, Vector2f pos, Vector2f dir) : Disparo(t,IntRect(0,17,16,16),pos,dir, 4.0f){
 	
 }
 

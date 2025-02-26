@@ -2,15 +2,7 @@
 #include <cmath>
 using namespace std;
 
-bool fuera_de_la_pantalla (Disparo & d) {
-	Vector2f p = d.verPosicion();
-	if (p.x<0 or p.x>640) return true;
-	if (p.y<0 or p.y>480) return true;
-	return false;
-}
-
-
-ArmaBase::ArmaBase() : Arma(275) {
+ArmaBase::ArmaBase() : Arma(1, 300) {
 
 }
 

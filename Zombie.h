@@ -13,10 +13,9 @@ public:
 	Zombie(Texture &t, Vector2f pos);
 	void Actualizar() override;
 	void Actualizar (Vector2f pos_jugador) override;
-	void AtacarJugador (Vector2f pos_jugador) override;
 	unique_ptr<ItemBase> GenerarItem(Texture &t) override;
-	FloatRect verHitbox() override;
 private:
+	void AtacarJugador (Vector2f pos_jugador) override;
 };
 
 #endif

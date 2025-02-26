@@ -2,7 +2,7 @@
 #include <cmath>
 using namespace std;
 
-ArmaTriple::ArmaTriple() : Arma(200) {
+ArmaTriple::ArmaTriple() : Arma(3, 200) {
 	
 }
 

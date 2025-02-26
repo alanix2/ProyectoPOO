@@ -4,8 +4,8 @@
 #include "ItemPuntos.h"
 #include "ItemVidaExtra.h"
 using namespace std;
-
-Zombie::Zombie (Texture & t, Vector2f pos) : EnemigoBase(t,pos,2.0f,50) {
+// 2 de velocidad, 50 puntos y 2 de vida
+Zombie::Zombie (Texture & t, Vector2f pos) : EnemigoBase(t,pos,2.0f,50,2) {
 	m_sprite.setScale(0.5,0.5);
 }
 
@@ -50,9 +50,3 @@ unique_ptr<ItemBase> Zombie::GenerarItem (Texture & t) {
 		return nullptr;
 	}
 }
-
-FloatRect Zombie::verHitbox ( ) {
-	FloatRect hitbox = m_sprite.getGlobalBounds();
-	return hitbox;
-}
-

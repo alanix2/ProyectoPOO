@@ -2,7 +2,6 @@
 #define JUGADOR_H
 #include "EntidadDibujable.h"
 #include "Disparo.h"
-#include "Enums.h"
 #include "ArmaBase.h"
 #include "ArmaTriple.h"
 #include <SFML/Graphics/RenderWindow.hpp>

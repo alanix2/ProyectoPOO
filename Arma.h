@@ -11,15 +11,17 @@ using namespace std;
 
 class Arma {
 public:
-	Arma(float delayDisparos);
+	Arma(int danio, float delayDisparos);
 	virtual void Actualizar() = 0;
 	virtual void Dibujar(RenderWindow &w) = 0;
 	virtual void Disparar(Vector2f pos, float rotation) = 0;
 	bool debeDisparar();
+	int verDanio();
 	
 protected:
 	static bool fuera_de_la_pantalla(Disparo &d);
 	float m_delayDisparos;
+	int m_danio;
 	Texture m_bala_textura;
 	Clock m_temporizadorDisparo;
 	Time m_intervaloDisparo = milliseconds(m_delayDisparos);
