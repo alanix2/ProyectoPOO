@@ -15,6 +15,7 @@ public:
 	virtual void Actualizar() = 0;
 	virtual void Dibujar(RenderWindow &w) = 0;
 	virtual void Disparar(Vector2f pos, float rotation) = 0;
+	virtual void destruirInactivos() = 0;
 	bool debeDisparar();
 	int verDanio();
 	

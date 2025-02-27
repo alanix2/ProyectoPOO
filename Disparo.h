@@ -11,9 +11,12 @@ using namespace sf;
 class Disparo : public EntidadDibujable {
 public:
 	Disparo(Texture &t, IntRect TexturePortion, Vector2f pos, Vector2f dir, float vel);
+	bool verEstado();
+	void Destruir();
 	virtual ~Disparo() {}
 protected:
 	Vector2f m_velocidad;
+	bool m_estaActivo = true; //booleano para saber si el proyectil sigue activo, si no lo está, el arma deberia de quitarlo del vector.
 private:
 
 };

@@ -1,8 +1,10 @@
 #ifndef ARMABASE_H
 #define ARMABASE_H
 #include "Arma.h"
-#include <vector>
 #include "DisparoNormal.h"
+#include <vector>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 using namespace std;
 using namespace sf;
 

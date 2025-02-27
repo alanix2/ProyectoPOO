@@ -20,7 +20,7 @@ EscenaPartida::EscenaPartida(Juego &j) : Escena(j){
 	m_enemigo_textura.loadFromFile("assets/enemy/zombiebasic.png");
 	m_font.loadFromFile("assets/fonts/asap.ttf");
 	m_item_textura.loadFromFile("assets/item/Items.png");
-	m_items.push_back(make_unique<ItemArmaTriple>(m_item_textura, Vector2f(300,200)));
+	m_items.push_back(make_unique<ItemArmaTriple>(m_item_textura, Vector2f(300,200))); //test
 	
 	for(Text &t : m_text){
 		t.setFont(m_font);
