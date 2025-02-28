@@ -8,10 +8,10 @@ Disparo::Disparo(Texture &t,IntRect TexturePortion, Vector2f pos, Vector2f dir, 
 }
 
 void Disparo::Destruir ( ) {
-	estado = false;
+	m_destruido = true;
 }
 
 bool Disparo::verEstado ( ) {
-	return m_estaActivo;
+	return m_destruido;
 }
 

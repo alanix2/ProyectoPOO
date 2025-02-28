@@ -26,30 +26,30 @@ public:
 	void Dibujar(RenderWindow &w) override;
 	void ProcesarEvento (Event &e) override;
 private:
-	void comprobarAtaqueEnemigo();
-	void comprobarAtacarEnemigos();
-	void comprobarRecogerItem();
-	void actualizarTexto();
-	
-	//temporal
-	void generarZombies();
-	
-	void Perder();
-	
 	Jugador m_jugador;
 	
-	//textura de los items
-	Texture m_item_textura;
-	vector<unique_ptr<ItemBase>> m_items;
+	// fuente y texto para ver score y vidas
+	void actualizarTexto();
+	Font m_font;
+	Text m_text[2];
 	
-	//textura de zombies, vector con zombies, y el reloj para generarlos
+	//metodos y variables de enemigos
+	//podria colocar esto en una funcion llamada gestorEnemigos
+	void generarZombies(); //temporal
+	void comprobarAtaqueEnemigo();
+	void comprobarAtacarEnemigos();
+	void eliminarEnemigosMuertos();
 	Texture m_enemigo_textura;
 	vector<unique_ptr<EnemigoBase>> m_enemigos;
 	Clock m_zombie_spawn_clock;
-		
-	// fuente y texto para ver score y vidas
-	Font m_font;
-	Text m_text[2];
+	
+	//metodos y variables de los power ups
+	void generarItemRandom(Vector2f pos);
+	void comprobarRecogerItem();
+	Texture m_item_textura;
+	vector<unique_ptr<ItemBase>> m_items;
+	
+	void Perder();
 };
 
 #endif

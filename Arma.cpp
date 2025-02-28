@@ -8,6 +8,10 @@ bool Arma::debeDisparar ( ) {
 	return m_temporizadorDisparo.getElapsedTime() > m_intervaloDisparo;
 }
 
+int Arma::verDanio ( ) {
+	return m_danio;
+}
+
 bool Arma::fuera_de_la_pantalla (Disparo & d) {
 	Vector2f p = d.verPosicion();
 	if (p.x<0 or p.x>640) return true;
@@ -15,7 +19,6 @@ bool Arma::fuera_de_la_pantalla (Disparo & d) {
 	return false;
 }
 
-int Arma::verDanio ( ) {
-	return m_danio;
+bool Arma::esta_destruido (Disparo & d) {
+	return d.verEstado();
 }
-

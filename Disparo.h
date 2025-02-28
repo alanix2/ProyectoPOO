@@ -16,7 +16,7 @@ public:
 	virtual ~Disparo() {}
 protected:
 	Vector2f m_velocidad;
-	bool m_estaActivo = true; //booleano para saber si el proyectil sigue activo, si no lo está, el arma deberia de quitarlo del vector.
+	bool m_destruido = false; //booleano para saber si el proyectil sigue activo, si no lo está, el arma deberia de quitarlo del vector.
 private:
 
 };

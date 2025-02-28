@@ -10,6 +10,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
+#include <SFML/Graphics/Rect.hpp>
 #include <string>
 #include <memory>
 
@@ -21,8 +22,10 @@ public:
 	Jugador();
 	void Actualizar() override;	
 	void Dibujar(RenderWindow &w) override;
+	void moverPosicion(Vector2f pos);
 	void CambiarArma(unique_ptr<Arma> nuevaArma);
-	
+	bool lograAtacar(FloatRect hb);
+	int verDanioArma();
 	void restarVida();
 	void sumarVida();
 	int verVidas();

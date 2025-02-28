@@ -15,6 +15,11 @@ Jugador::Jugador() : m_armaEquipada(make_unique<ArmaBase>()){
 	m_sprite.setPosition(320,240);
 }
 
+void Jugador::Dibujar (RenderWindow & w) {
+	w.draw(m_sprite);
+	m_armaEquipada->Dibujar(w);
+}
+
 void Jugador::Actualizar() {
 	mover();
 	rotarSprite();
@@ -22,6 +27,10 @@ void Jugador::Actualizar() {
 	if(sePresionoDisparo()){
 		m_armaEquipada->Disparar(m_sprite.getPosition(), m_sprite.getRotation());
 	}
+}
+
+void Jugador::moverPosicion (Vector2f pos) {
+	m_sprite.setPosition(pos);
 }
 
 bool Jugador::sePresionoDisparo ( ) {
@@ -33,6 +42,14 @@ bool Jugador::sePresionoDisparo ( ) {
 
 void Jugador::CambiarArma (unique_ptr<Arma> nuevaArma) {
 	m_armaEquipada = move(nuevaArma);
+}
+
+bool Jugador::lograAtacar (FloatRect hb) {
+	return m_armaEquipada->VerificarColision(hb);
+}
+
+int Jugador::verDanioArma ( ) {
+	return m_armaEquipada->verDanio();
 }
 
 void Jugador::restarVida ( ) {
@@ -118,9 +135,3 @@ void Jugador::rotarSprite ( ) {
 		m_sprite.setRotation(angulo);
 	}
 }
-
-void Jugador::Dibujar (RenderWindow & w) {
-	w.draw(m_sprite);
-	m_armaEquipada->Dibujar(w);
-}
-

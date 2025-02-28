@@ -11,11 +11,11 @@ using namespace std;
 class Zombie : public EnemigoBase {
 public:
 	Zombie(Texture &t, Vector2f pos);
-	void Actualizar() override;
 	void Actualizar (Vector2f pos_jugador) override;
 	unique_ptr<ItemBase> GenerarItem(Texture &t) override;
-private:
+protected:
 	void AtacarJugador (Vector2f pos_jugador) override;
+private:
 };
 
 #endif

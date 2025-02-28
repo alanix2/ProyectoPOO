@@ -13,6 +13,7 @@
 #include "Zombie.h"
 #include "ArmaBase.h"
 #include "ItemArmaTriple.h"
+#include "EnemigoBase.h"
 using namespace std;
 using namespace sf;
 
@@ -37,48 +38,55 @@ EscenaPartida::EscenaPartida(Juego &j) : Escena(j){
 	
 }
 
-/* 
-funcion auxiliar para ver si el rectangulo que rodea a dos sprites
-se intersectan (no siempre es util porque a veces el rectangulo
-suele ser mas grande que el propio sprite)
-*/
+//<-funciones auxiliares de colisión
+
+//colision entre dos hitboxes
 bool colisiona(FloatRect h1, FloatRect h2){
 	return (h1.intersects(h2));
 }
-bool colisiona(Vector2f pos1, Vector2f pos2){
+
+//colision verificando si un punto esta en el area de la hitbox
+bool colisiona(FloatRect hb, Vector2f pos){
+	return (hb.contains(pos));
+}
+
+//colision mediante la formula de distancia entre dos puntos
+bool colisiona(Vector2f pos1, Vector2f pos2, float distancia){
 	Vector2f v = pos1-pos2;
-	return sqrt(v.x*v.x+v.y*v.y)<25;
+	return sqrt((v.x*v.x)+(v.y*v.y))<distancia;
 }	
+//->	
+	
+bool esta_muerto(const unique_ptr<EnemigoBase> &e){
+	return e->verEstado();
+}
 	
 void EscenaPartida::Actualizar () {
-	
-	generarZombies();
-	
+	actualizarTexto();
 	m_jugador.Actualizar();
 	
+	generarZombies();
+	for(auto &e : m_enemigos)
+		e->Actualizar(m_jugador.verPosicion());
+	comprobarAtacarEnemigos();
+	comprobarAtaqueEnemigo();
+	eliminarEnemigosMuertos();
 
 	for(auto &i : m_items)
 		i->Actualizar();
-	
-	for(auto &e : m_enemigos)
-		e->Actualizar(m_jugador.verPosicion());
-	
-	comprobarAtaqueEnemigo();
 	comprobarRecogerItem();
 	
 	//si pierde todas las vidas, se termina el juego (se podria extraer a una funcion privada)
-	if(m_jugador.verVidas() == 0){
+	if(m_jugador.verVidas() <= 0){
 		m_juego.ActualizarScore(m_jugador.verPuntos());
 		m_juego.cambiarEscena(new EscenaResultados(m_juego, m_jugador.verPuntos()));
 	}
-	
-	
-	//para actualizar el texto con los puntos y vidas
-	actualizarTexto();
 }
 
 void EscenaPartida::Dibujar (RenderWindow & w) {
 	w.clear(Color(0,0,0,255));
+	for(Text &t : m_text)
+		w.draw(t);
 	
 	for(auto &i : m_items)
 		i->Dibujar(w);
@@ -87,8 +95,6 @@ void EscenaPartida::Dibujar (RenderWindow & w) {
 		e->Dibujar(w);
 	
 	
-	for(Text &t : m_text)
-		w.draw(t);
 	
 	m_jugador.Dibujar(w);
 }
@@ -100,6 +106,32 @@ void EscenaPartida::ProcesarEvento (Event &e) {
 	}
 }
 
+void EscenaPartida::actualizarTexto(){
+	//aqui luego se tendria que poner para actualizar las vidas
+	stringstream pts;
+	pts << "SCORE: " << setw(8) << setfill('0') << m_jugador.verPuntos();
+	m_text[0].setString(pts.str());
+	m_text[1].setString("VIDAS :" + to_string(m_jugador.verVidas()));
+}
+
+void EscenaPartida::generarZombies ( ) {
+	if (m_zombie_spawn_clock.getElapsedTime().asSeconds() >=0.5f) {
+		// Genera un zombie desde la posición de la puerta
+		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(50,300)));
+		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(32,200)));
+		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(15,100)));
+		
+		m_zombie_spawn_clock.restart(); // Reinicia el reloj
+	}
+}
+
+void EscenaPartida::comprobarAtacarEnemigos ( ) {
+	for (auto &e : m_enemigos){
+		if(m_jugador.lograAtacar(e->verHitbox())){
+			e->recibirDanio(m_jugador.verDanioArma());
+		}
+	}
+}
 
 void EscenaPartida::comprobarAtaqueEnemigo(){
 	for(auto &e : m_enemigos){
@@ -109,22 +141,16 @@ void EscenaPartida::comprobarAtaqueEnemigo(){
 	}
 }
 
-void EscenaPartida::actualizarTexto(){
-			//aqui luego se tendria que poner para actualizar las vidas
-			stringstream pts;
-			pts << "SCORE: " << setw(8) << setfill('0') << m_jugador.verPuntos();
-			m_text[0].setString(pts.str());
-			m_text[1].setString("VIDAS :" + to_string(m_jugador.verVidas()));
-}
-
-void EscenaPartida::generarZombies ( ) {
-	if (m_zombie_spawn_clock.getElapsedTime().asSeconds() >=1.2f) {
-		// Genera un zombie desde la posición de la puerta
-		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(32,200)));
-		m_zombie_spawn_clock.restart(); // Reinicia el reloj
+void EscenaPartida::eliminarEnemigosMuertos ( ) {
+	for(auto &e : m_enemigos){
+		if(esta_muerto(e)){
+			m_jugador.sumarPuntos(e->verPuntos());
+			m_items.push_back(e->GenerarItem(m_item_textura));
+		}
 	}
+	auto it = remove_if(m_enemigos.begin(), m_enemigos.end(), esta_muerto);
+	m_enemigos.erase(it, m_enemigos.end());
 }
-
 
 void EscenaPartida::comprobarRecogerItem ( ) {
 	for(size_t i = 0; i < m_items.size();++i) {
@@ -137,7 +163,10 @@ void EscenaPartida::comprobarRecogerItem ( ) {
 }
 
 void EscenaPartida::Perder ( ) {
-	//podria ser mejor, a lo mejor cuando se agreguen niveles.
+	//temporal, deberia de haber alguna manera de que se reinicie el nivel restandole una vida y un par de puntos al jugador.
+	m_enemigos.clear();
+	m_items.clear();
+	m_jugador.moverPosicion(Vector2f(320,240));
 	m_jugador.restarVida();
 	m_jugador.CambiarArma(make_unique<ArmaBase>());
 }

@@ -18,14 +18,8 @@ void ArmaTriple::Actualizar ( ) {
 		b.Actualizar();
 	}
 	
-	auto it = remove_if(m_balas1.begin(),m_balas1.end(),fuera_de_la_pantalla);
-	m_balas1.erase(it,m_balas1.end());
-	
-	it = remove_if(m_balas2.begin(),m_balas2.end(),fuera_de_la_pantalla);
-	m_balas2.erase(it,m_balas2.end());
-	
-	it = remove_if(m_balas3.begin(),m_balas3.end(),fuera_de_la_pantalla);
-	m_balas3.erase(it,m_balas3.end());
+	destruirFueraDePantalla();
+	destruirInactivos();
 }
 
 void ArmaTriple::Dibujar (RenderWindow & w) {
@@ -54,3 +48,45 @@ void ArmaTriple::Disparar (Vector2f pos, float rotation) {
 	}
 }
 
+
+bool ArmaTriple::VerificarColision (FloatRect & hb) {
+	for(auto &b : m_balas1){
+		if(b.verHitbox().intersects(hb)){
+			b.Destruir();
+			return true;
+		}
+	}
+	for(auto &b : m_balas2){
+		if(b.verHitbox().intersects(hb)){
+			b.Destruir();
+			return true;
+		}
+	}
+	for(auto &b : m_balas3){
+		if(b.verHitbox().intersects(hb)){
+			b.Destruir();
+			return true;
+		}
+	}
+	return false;
+}
+
+void ArmaTriple::destruirFueraDePantalla ( ) {
+	auto it = remove_if(m_balas1.begin(),m_balas1.end(),fuera_de_la_pantalla);
+	m_balas1.erase(it,m_balas1.end());
+	
+	it = remove_if(m_balas2.begin(),m_balas2.end(),fuera_de_la_pantalla);
+	m_balas2.erase(it,m_balas2.end());
+	
+	it = remove_if(m_balas3.begin(),m_balas3.end(),fuera_de_la_pantalla);
+	m_balas3.erase(it,m_balas3.end());
+}
+
+void ArmaTriple::destruirInactivos ( ) {
+	auto it = remove_if(m_balas1.begin(),m_balas1.end(),esta_destruido);
+	m_balas1.erase(it,m_balas1.end());
+	it = remove_if(m_balas2.begin(),m_balas2.end(),esta_destruido);
+	m_balas2.erase(it,m_balas2.end());
+	it = remove_if(m_balas3.begin(),m_balas3.end(),esta_destruido);
+	m_balas3.erase(it,m_balas3.end());
+}

@@ -6,9 +6,18 @@ EnemigoBase::EnemigoBase (Texture & t, Vector2f pos, float vel, int puntos, int 
 	m_sprite.setPosition(pos);
 }
 
-void EnemigoBase::restarVida (int danio) {
-	m_vida -= danio;
+void EnemigoBase::Actualizar ( ) {}
 
+void EnemigoBase::Morir(){
+	m_muerto = true;
+}
+
+bool EnemigoBase::verEstado(){
+	return m_muerto;
+}
+
+void EnemigoBase::recibirDanio (int danio) {
+	m_vida -= danio;
 }
 
 int EnemigoBase::verVida ( ) {
@@ -22,5 +31,3 @@ int EnemigoBase::verPuntos ( ) {
 float EnemigoBase::verVelocidad ( ) {
 	return m_velocidad;
 }
-
-

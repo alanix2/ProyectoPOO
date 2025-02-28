@@ -10,8 +10,9 @@ void ArmaBase::Actualizar ( ) {
 	for(auto &b : m_balas){
 			b.Actualizar();
 	}
-	auto it = remove_if(m_balas.begin(),m_balas.end(),fuera_de_la_pantalla);
-	m_balas.erase(it,m_balas.end());
+	
+	destruirFueraDePantalla();
+	destruirInactivos();
 	
 }
 
@@ -29,4 +30,22 @@ void ArmaBase::Disparar (Vector2f pos, float rotation) {
 	}
 }
 
+bool ArmaBase::VerificarColision (FloatRect & hb) {
+	for(auto &b : m_balas){
+		if(b.verHitbox().intersects(hb)){
+			b.Destruir();
+			return true;
+		}
+	}
+	return false;
+}
 
+void ArmaBase::destruirFueraDePantalla ( ) {
+	auto it = remove_if(m_balas.begin(),m_balas.end(),fuera_de_la_pantalla);
+	m_balas.erase(it,m_balas.end());
+}
+
+void ArmaBase::destruirInactivos ( ) {
+	auto it = remove_if(m_balas.begin(),m_balas.end(),esta_destruido);
+	m_balas.erase(it,m_balas.end());
+}
