@@ -45,7 +45,7 @@ private:
 	
 	//los puntos y las vidas se podrian mover a otra clase, para que se gestionen mejor.
 	int m_puntajeActual = 0;
-	int m_vidas = 1;
+	int m_vidas = 3;
 	
 	float m_velocidad = 2.0f;
 };

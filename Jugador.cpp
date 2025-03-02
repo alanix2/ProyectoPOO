@@ -12,7 +12,7 @@ Jugador::Jugador() : m_armaEquipada(make_unique<ArmaBase>()){
 	m_sprite.setTextureRect(IntRect(0,0,32,16));
 	m_sprite.setOrigin((m_texture.getSize().x/2)/2,(m_texture.getSize().y/2)/2);
 	ConfigurarControles();
-	m_sprite.setPosition(320,240);
+	m_sprite.setPosition(160,120);
 }
 
 void Jugador::Dibujar (RenderWindow & w) {

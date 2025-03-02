@@ -15,6 +15,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <vector>
 #include <memory>
+#include "Map.h"
 
 using namespace sf;
 using namespace std;
@@ -27,6 +28,7 @@ public:
 	void ProcesarEvento (Event &e) override;
 private:
 	Jugador m_jugador;
+	Map maptest;
 	
 	// fuente y texto para ver score y vidas
 	void actualizarTexto();
@@ -43,7 +45,7 @@ private:
 	vector<unique_ptr<EnemigoBase>> m_enemigos;
 	Clock m_zombie_spawn_clock;
 	
-	//metodos y variables de los power ups
+	//metodos y variables de los power ups. podria poner esto en una clase tambien
 	void generarItemRandom(Vector2f pos);
 	void comprobarRecogerItem();
 	Texture m_item_textura;

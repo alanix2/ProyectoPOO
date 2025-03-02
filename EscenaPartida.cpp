@@ -28,12 +28,12 @@ EscenaPartida::EscenaPartida(Juego &j) : Escena(j){
 		t.setFillColor({255,255,255});
 		t.setOutlineColor({0,0,0});
 		t.setOutlineThickness(2);
-		t.setCharacterSize(20);
+		t.setCharacterSize(25);
 	}
 
-	m_text[0].setPosition(10,5);
+	m_text[0].setPosition(2,-15);
 	m_text[0].setString("SCORE: 00000000");
-	m_text[1].setPosition(450,5);
+	m_text[1].setPosition(260,-15);
 	m_text[1].setString("VIDAS: " + to_string(m_jugador.verVidas()));
 	
 }
@@ -85,6 +85,7 @@ void EscenaPartida::Actualizar () {
 
 void EscenaPartida::Dibujar (RenderWindow & w) {
 	w.clear(Color(0,0,0,255));
+	maptest.draw(w);
 	for(Text &t : m_text)
 		w.draw(t);
 	
@@ -137,6 +138,7 @@ void EscenaPartida::comprobarAtaqueEnemigo(){
 	for(auto &e : m_enemigos){
 		if(colisiona(e->verHitbox(), m_jugador.verHitbox())){
 			Perder();
+			break;
 		}
 	}
 }
@@ -162,11 +164,11 @@ void EscenaPartida::comprobarRecogerItem ( ) {
 	}
 }
 
+//temporal, deberia de haber alguna manera de que se reinicie el nivel restandole una vida y un par de puntos al jugador.
 void EscenaPartida::Perder ( ) {
-	//temporal, deberia de haber alguna manera de que se reinicie el nivel restandole una vida y un par de puntos al jugador.
 	m_enemigos.clear();
 	m_items.clear();
-	m_jugador.moverPosicion(Vector2f(320,240));
+	m_jugador.moverPosicion(Vector2f(160,120));
 	m_jugador.restarVida();
 	m_jugador.CambiarArma(make_unique<ArmaBase>());
 }
