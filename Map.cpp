@@ -27,25 +27,30 @@ void Map::draw(sf::RenderWindow &window)
 
 	/*
 	The codes with their corresponding tiles
-
-		- 0	=	pink path
-		- 1	=	stone wall
-		- 2	=	wooden box
-		- 3	=	grass
+		-0 piso
+		-1 esquinaSupIzq;
+		-2 esquinaSupDer;
+		-3 esquinaInfIzq;
+		-4 esquinaInfDer;
+	
+		-5 paredSuperior;
+		-6 paredInferior;
+		-7 paredIzquierda;
+		-8 paredDerecha;
 	*/
 
 	int map[mapRows][mapColumns] =
 	{
-		{ 1, 1, 1, 1, 1, 1, 1}, // row 1
-		{ 1, 0, 0, 0, 0, 0, 0}, // row 2
-		{ 1, 0, 0, 0, 0, 0, 0}, // row 3
-		{ 1, 0, 0, 2, 2, 2, 2}, // row 4
-		{ 1, 0, 0, 2, 3, 3, 3}, // row 5
-		{ 1, 0, 0, 2, 3, 2, 2}, // row 6
-		{ 1, 0, 0, 2, 3, 2, 0}, // row 7
-		{ 1, 0, 0, 2, 3, 2, 0}, // row 8
-		{ 1, 0, 0, 2, 2, 2, 0}, // row 9
-		{ 1, 0, 0, 0, 0, 0, 0}, // row 10
+		{ 1, 5, 5, 5, 5, 5, 2}, // fila 1
+		{ 7, 0, 0, 0, 0, 0, 8}, // fila 2
+		{ 7, 0, 0, 0, 0, 0, 8}, // fila 3
+		{ 7, 0, 0, 0, 0, 0, 8}, // fila 4
+		{ 7, 0, 0, 0, 0, 0, 8}, // fila 5
+		{ 7, 0, 0, 0, 0, 0, 8}, // fila 6
+		{ 7, 0, 0, 0, 0, 0, 8}, // fila 7
+		{ 7, 0, 0, 0, 0, 0, 8}, // fila 8
+		{ 7, 0, 0, 0, 0, 0, 8}, // fila 9
+		{ 3, 6, 6, 6, 6, 6, 4}, // fila 10
 		
 	};
 
@@ -59,27 +64,15 @@ void Map::draw(sf::RenderWindow &window)
 		for (int column = 0; column < mapColumns; column++)
 		{
 			// Add / remove cases when tiles are added / removed
-			switch (map[row][column])
-			{
-			case 0:
-				placeHolder = pinkPath;
-				break;
-			case 1:
-				placeHolder = stoneWall;
-				break;
-			case 2:
-				placeHolder = woodenBox;
-				break;
-			case 3:
-				placeHolder = grass;
-				break;
-			}
+			setTileIntRect(map[row][column], placeHolder);
 
 			// Set the correct part of the spritesheet
 			tile.setTextureRect(placeHolder);
 
 			// Set the position
 			tile.setPosition((row * tileWidth), (column * tileHeight+16));
+			//test 
+
 
 			// Draw the sprite to the screen
 			window.draw(tile);
@@ -93,23 +86,81 @@ void Map::draw(sf::RenderWindow &window)
 // Change if the tiles should be bigger / smaller
 void Map::initIntRect()
 {
-	grass.left = 0;
-	grass.top = 0;
-	grass.width = tileWidth;
-	grass.height = tileHeight;
-
-	pinkPath.left = 32;
-	pinkPath.top = 0;
-	pinkPath.width = tileWidth;
-	pinkPath.height = tileHeight;
-
-	stoneWall.left = 0;
-	stoneWall.top = 32;
-	stoneWall.width = tileWidth;
-	stoneWall.height = tileHeight;
-
-	woodenBox.left = 30;
-	woodenBox.top = 32;
-	woodenBox.width = tileWidth;
-	woodenBox.height = tileHeight;
+	piso.left = 32;
+	piso.top = 32;
+	piso.width = tileWidth;
+	piso.height = tileHeight;
+	
+	esquinaSupIzq.left = 0;
+	esquinaSupIzq.top = 0;
+	esquinaSupIzq.width = tileWidth;
+	esquinaSupIzq.height = tileHeight;
+	
+	esquinaSupDer.left = 0;
+	esquinaSupDer.top = 112;
+	esquinaSupDer.width = tileWidth;
+	esquinaSupDer.height = tileHeight;
+	
+	esquinaInfIzq.left = 112;
+	esquinaInfIzq.top = 0;
+	esquinaInfIzq.width = tileWidth;
+	esquinaInfIzq.height = tileHeight;
+	
+	esquinaInfDer.left = 112;
+	esquinaInfDer.top = 112;
+	esquinaInfDer.width = tileWidth;
+	esquinaInfDer.height = tileHeight;
+	
+	paredSuperior.left = 0;
+	paredSuperior.top = 32;
+	paredSuperior.width = tileWidth;
+	paredSuperior.height = tileHeight;
+	
+	paredInferior.left = 112;
+	paredInferior.top = 32;
+	paredInferior.width = tileWidth;
+	paredInferior.height = tileHeight;
+	
+	paredIzquierda.left = 32;
+	paredIzquierda.top = 0;
+	paredIzquierda.width = tileWidth;
+	paredIzquierda.height = tileHeight;
+	
+	paredDerecha.left = 32;
+	paredDerecha.top = 112;
+	paredDerecha.width = tileWidth;
+	paredDerecha.height = tileHeight;
 }
+
+void Map::setTileIntRect (int tileId, sf::IntRect &ir) {	
+	switch (tileId){
+	case 0:
+		ir = piso;
+		break;
+	case 1:
+		ir = esquinaSupIzq;
+		break;
+	case 2:
+		ir = esquinaSupDer;
+		break;
+	case 3:
+		ir = esquinaInfIzq;
+		break;
+	case 4:
+		ir = esquinaInfDer;
+		break;
+	case 5:
+		ir = paredSuperior;
+		break;
+	case 6:
+		ir = paredInferior;
+		break;
+	case 7:
+		ir = paredIzquierda;
+		break;
+	case 8:
+		ir = paredDerecha;
+		break;
+	}
+}
+

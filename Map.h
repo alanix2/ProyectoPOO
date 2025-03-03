@@ -10,10 +10,10 @@ public:
 
 private:
 	void initIntRect();
+	void setTileIntRect(int tileId, sf::IntRect &ir);
 
 private:
-	// In the constructor, specify these constants
-	// They are important
+	//Especificar en constructor
 	const int tileWidth;
 	const int tileHeight;
 
@@ -25,8 +25,15 @@ private:
 
 	// Add / remove these in order to add more tiles
 	// This depends on the amount of tiles in your texture
-	sf::IntRect pinkPath;
-	sf::IntRect woodenBox;
-	sf::IntRect grass;
-	sf::IntRect stoneWall;
+	sf::IntRect piso;
+	
+	sf::IntRect esquinaSupIzq;
+	sf::IntRect esquinaSupDer;
+	sf::IntRect esquinaInfIzq;
+	sf::IntRect esquinaInfDer;
+	
+	sf::IntRect paredSuperior;
+	sf::IntRect paredInferior;
+	sf::IntRect paredIzquierda;
+	sf::IntRect paredDerecha;
 };
