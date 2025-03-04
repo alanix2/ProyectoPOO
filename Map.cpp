@@ -2,13 +2,13 @@
 
 Map::Map()
 	// Change the values when using tiles other than 30x30
-	: tileWidth(32)
-	, tileHeight(32)
+	: tileWidth(64)
+	, tileHeight(64)
 {
 	// Load the texture which contains the tiles
-	if (!tileSheet.loadFromFile("assets/level/level.png"))
+	if (!tileSheet.loadFromFile("assets/level/level2.png"))
 	{
-		std::cout << "Could not load \"tiles.png\"!" << std::endl;
+		std::cout << "Could not load file" <<  std::endl;
 	}
 
 	// Set the tiles
@@ -64,13 +64,42 @@ void Map::draw(sf::RenderWindow &window)
 		for (int column = 0; column < mapColumns; column++)
 		{
 			// Add / remove cases when tiles are added / removed
-			setTileIntRect(map[row][column], placeHolder);
+//			setTileIntRect(map[row][column], placeHolder);
+			switch (map[row][column]){
+			case 0:
+				placeHolder = piso;
+				break;
+			case 1:
+				placeHolder = esquinaSupIzq;
+				break;
+			case 2:
+				placeHolder = esquinaSupDer;
+				break;
+			case 3:
+				placeHolder = esquinaInfIzq;
+				break;
+			case 4:
+				placeHolder = esquinaInfDer;
+				break;
+			case 5:
+				placeHolder = paredSuperior;
+				break;
+			case 6:
+				placeHolder = paredInferior;
+				break;
+			case 7:
+				placeHolder = paredIzquierda;
+				break;
+			case 8:
+				placeHolder = paredDerecha;
+				break;
+			}
 
 			// Set the correct part of the spritesheet
 			tile.setTextureRect(placeHolder);
 
 			// Set the position
-			tile.setPosition((row * tileWidth), (column * tileHeight+16));
+			tile.setPosition((row * tileWidth), (column * tileHeight+32));
 			//test 
 
 
@@ -86,8 +115,8 @@ void Map::draw(sf::RenderWindow &window)
 // Change if the tiles should be bigger / smaller
 void Map::initIntRect()
 {
-	piso.left = 32;
-	piso.top = 32;
+	piso.left = 64;
+	piso.top = 64;
 	piso.width = tileWidth;
 	piso.height = tileHeight;
 	
@@ -97,37 +126,37 @@ void Map::initIntRect()
 	esquinaSupIzq.height = tileHeight;
 	
 	esquinaSupDer.left = 0;
-	esquinaSupDer.top = 112;
+	esquinaSupDer.top = 128;
 	esquinaSupDer.width = tileWidth;
 	esquinaSupDer.height = tileHeight;
 	
-	esquinaInfIzq.left = 112;
+	esquinaInfIzq.left = 128;
 	esquinaInfIzq.top = 0;
 	esquinaInfIzq.width = tileWidth;
 	esquinaInfIzq.height = tileHeight;
 	
-	esquinaInfDer.left = 112;
-	esquinaInfDer.top = 112;
+	esquinaInfDer.left = 128;
+	esquinaInfDer.top = 128;
 	esquinaInfDer.width = tileWidth;
 	esquinaInfDer.height = tileHeight;
 	
 	paredSuperior.left = 0;
-	paredSuperior.top = 32;
+	paredSuperior.top = 64;
 	paredSuperior.width = tileWidth;
 	paredSuperior.height = tileHeight;
 	
-	paredInferior.left = 112;
-	paredInferior.top = 32;
+	paredInferior.left = 128;
+	paredInferior.top = 64;
 	paredInferior.width = tileWidth;
 	paredInferior.height = tileHeight;
 	
-	paredIzquierda.left = 32;
+	paredIzquierda.left = 64;
 	paredIzquierda.top = 0;
 	paredIzquierda.width = tileWidth;
 	paredIzquierda.height = tileHeight;
 	
-	paredDerecha.left = 32;
-	paredDerecha.top = 112;
+	paredDerecha.left = 64;
+	paredDerecha.top = 128;
 	paredDerecha.width = tileWidth;
 	paredDerecha.height = tileHeight;
 }

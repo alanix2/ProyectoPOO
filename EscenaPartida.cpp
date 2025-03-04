@@ -168,7 +168,7 @@ void EscenaPartida::comprobarRecogerItem ( ) {
 void EscenaPartida::Perder ( ) {
 	m_enemigos.clear();
 	m_items.clear();
-	m_jugador.moverPosicion(Vector2f(160,120));
+	m_jugador.moverPosicion(Vector2f(320,240));
 	m_jugador.restarVida();
 	m_jugador.CambiarArma(make_unique<ArmaBase>());
 }

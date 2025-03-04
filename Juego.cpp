@@ -5,7 +5,7 @@
 using namespace std;
 using namespace sf;
 
-Juego::Juego () : m_win(VideoMode(320,240),"Super Shooter Deluxe", Style::Titlebar | Style::Close) {
+Juego::Juego () : m_win(VideoMode(640,480),"Super Shooter Deluxe", Style::Titlebar | Style::Close) {
 	leerHighscore();
 	m_win.setFramerateLimit(60);
 }
