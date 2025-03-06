@@ -118,8 +118,8 @@ void EscenaPartida::actualizarTexto(){
 void EscenaPartida::generarZombies ( ) {
 	if (m_zombie_spawn_clock.getElapsedTime().asSeconds() >=0.5f) {
 		// Genera un zombie desde la posición de la puerta
-		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(50,300)));
-		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(32,200)));
+//		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(50,300)));
+//		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(32,200)));
 		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(15,100)));
 		
 		m_zombie_spawn_clock.restart(); // Reinicia el reloj
