@@ -3,7 +3,9 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 using namespace sf;
-
+//esta es la clase base/prototipo para las escenas
+//el juego tiene varias escenas, como el menu, la partida, los resultados o game over, etc
+//de momento solo hay 3 escenas, pero podriamos hacer mas.
 class Juego;
 
 class Escena {

@@ -7,33 +7,33 @@
 #include <SFML/System/Vector2.hpp>
 #include "EscenaPartida.h"
 #include "Juego.h"
-#include "EscenaResultados.h"
+#include "EscenaGameOver.h"
 #include "EscenaMenu.h"
 #include "ItemPuntos.h"
 #include "Zombie.h"
-#include "ArmaBase.h"
+#include "ArmaNormal.h"
 #include "ItemArmaTriple.h"
 #include "EnemigoBase.h"
 using namespace std;
 using namespace sf;
 
 EscenaPartida::EscenaPartida(Juego &j) : Escena(j){
-	m_enemigo_textura.loadFromFile("assets/enemy/zombiebasic.png");
-	m_font.loadFromFile("assets/fonts/asap.ttf");
-	m_item_textura.loadFromFile("assets/item/Items.png");
-	m_items.push_back(make_unique<ItemArmaTriple>(m_item_textura, Vector2f(300,200))); //test
+	m_enemigo_textura.loadFromFile("assets/enemy/zombiebasic.png"); //cargar la textura de los enemigos (hasta ahora solo hay uno xd)
+	m_font.loadFromFile("assets/fonts/asap.ttf"); //fuente para ver el texto del score y las vidas.
+	m_item_textura.loadFromFile("assets/item/Items.png"); //cargar la textura de los items y power ups
+	m_items.push_back(make_unique<ItemArmaTriple>(m_item_textura, Vector2f(300,200))); //testeo para ver si andan las armas
 	
 	for(Text &t : m_text){
 		t.setFont(m_font);
 		t.setFillColor({255,255,255});
 		t.setOutlineColor({0,0,0});
 		t.setOutlineThickness(2);
-		t.setCharacterSize(25);
+		t.setCharacterSize(50);
 	}
 
-	m_text[0].setPosition(2,-15);
+	m_text[0].setPosition(10,-20);
 	m_text[0].setString("SCORE: 00000000");
-	m_text[1].setPosition(260,-15);
+	m_text[1].setPosition(520,-20);
 	m_text[1].setString("VIDAS: " + to_string(m_jugador.verVidas()));
 	
 }
@@ -58,6 +58,7 @@ bool colisiona(Vector2f pos1, Vector2f pos2, float distancia){
 //->	
 	
 bool esta_muerto(const unique_ptr<EnemigoBase> &e){
+	//para ver si el enemigo esta muerto xd.
 	return e->verEstado();
 }
 	
@@ -76,16 +77,16 @@ void EscenaPartida::Actualizar () {
 		i->Actualizar();
 	comprobarRecogerItem();
 	
-	//si pierde todas las vidas, se termina el juego (se podria extraer a una funcion privada)
+	//si pierde todas las vidas, se termina el juego (podria ser mejor)
 	if(m_jugador.verVidas() <= 0){
 		m_juego.ActualizarScore(m_jugador.verPuntos());
-		m_juego.cambiarEscena(new EscenaResultados(m_juego, m_jugador.verPuntos()));
+		m_juego.cambiarEscena(new EscenaGameOver(m_juego, m_jugador.verPuntos()));
 	}
 }
 
 void EscenaPartida::Dibujar (RenderWindow & w) {
 	w.clear(Color(0,0,0,255));
-	maptest.draw(w);
+	maptest.Dibujar(w); 
 	for(Text &t : m_text)
 		w.draw(t);
 	
@@ -95,12 +96,11 @@ void EscenaPartida::Dibujar (RenderWindow & w) {
 	for(auto &e : m_enemigos)
 		e->Dibujar(w);
 	
-	
-	
 	m_jugador.Dibujar(w);
 }
 
 void EscenaPartida::ProcesarEvento (Event &e) {
+	//si se presiona escape se vuelve al menu y se actualiza el score.
 	if (e.type==Event::KeyPressed and e.key.code==Keyboard::Escape){
 		m_juego.ActualizarScore(m_jugador.verPuntos());
 		m_juego.cambiarEscena(new EscenaMenu(m_juego));
@@ -108,7 +108,7 @@ void EscenaPartida::ProcesarEvento (Event &e) {
 }
 
 void EscenaPartida::actualizarTexto(){
-	//aqui luego se tendria que poner para actualizar las vidas
+	//para actualizar el score y las vidas del jugador.
 	stringstream pts;
 	pts << "SCORE: " << setw(8) << setfill('0') << m_jugador.verPuntos();
 	m_text[0].setString(pts.str());
@@ -117,9 +117,9 @@ void EscenaPartida::actualizarTexto(){
 
 void EscenaPartida::generarZombies ( ) {
 	if (m_zombie_spawn_clock.getElapsedTime().asSeconds() >=0.5f) {
-		// Genera un zombie desde la posición de la puerta
-//		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(50,300)));
-//		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(32,200)));
+		// Genera un zombie desde una posicion xd.
+		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(50,300)));
+		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(32,200)));
 		m_enemigos.emplace_back(make_unique<Zombie>(m_enemigo_textura, Vector2f(15,100)));
 		
 		m_zombie_spawn_clock.restart(); // Reinicia el reloj
@@ -144,6 +144,7 @@ void EscenaPartida::comprobarAtaqueEnemigo(){
 }
 
 void EscenaPartida::eliminarEnemigosMuertos ( ) {
+	//si el enemigo esta muerto, se suma puntos al jugador, se genera un objeto y se quita del vector de enemigos.
 	for(auto &e : m_enemigos){
 		if(esta_muerto(e)){
 			m_jugador.sumarPuntos(e->verPuntos());
@@ -155,6 +156,7 @@ void EscenaPartida::eliminarEnemigosMuertos ( ) {
 }
 
 void EscenaPartida::comprobarRecogerItem ( ) {
+	//si se recoge el item se aplica el efecto al jugador y se borra del vector.
 	for(size_t i = 0; i < m_items.size();++i) {
 		auto it = m_items.begin() + i;
 		if (colisiona(m_jugador.verHitbox(), m_items[i]->verHitbox())) {
@@ -170,5 +172,5 @@ void EscenaPartida::Perder ( ) {
 	m_items.clear();
 	m_jugador.moverPosicion(Vector2f(320,240));
 	m_jugador.restarVida();
-	m_jugador.CambiarArma(make_unique<ArmaBase>());
+	m_jugador.CambiarArma(make_unique<ArmaNormal>());
 }

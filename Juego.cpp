@@ -6,7 +6,8 @@ using namespace std;
 using namespace sf;
 
 Juego::Juego () : m_win(VideoMode(640,480),"Super Shooter Deluxe", Style::Titlebar | Style::Close) {
-	leerHighscore();
+	filename = "savedata.bin";
+	leerHighscore(); 
 	m_win.setFramerateLimit(60);
 }
 
@@ -62,7 +63,7 @@ void Juego::leerHighscore ( ) {
 	if (inFile) {
 		inFile.read(reinterpret_cast<char*>(&highscore), sizeof(highscore));
 		if (!inFile) {
-			cerr << "Error leyendo el highscore del archivo.\n";
+			cerr << "Error leyendo el archivo.";
 			highscore = 0;
 		}
 	} else {
@@ -85,7 +86,6 @@ void Juego::guardarHighscore ( ) {
 }
 
 void Juego::ActualizarScore (int nuevo_score) {
-	//Aca se tendria que guardar en un archivo
 	if (nuevo_score>highscore){
 		highscore = nuevo_score;
 		guardarHighscore();

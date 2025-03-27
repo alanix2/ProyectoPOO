@@ -21,17 +21,13 @@ private:
 	void Actualizar();
 	void Dibujar();
 	void ProcesarEventos();
-	void leerHighscore();
-	void guardarHighscore();
-	RenderWindow m_win;
+	void leerHighscore(); //leer el archivo con los highscores al iniciar
+	void guardarHighscore(); //guardar el score en un archivo
+	RenderWindow m_win; //la ventana xd
 	Escena *m_EscenaActual = nullptr, *m_ProximaEscena = nullptr; //Escena actual y proxima escena
 	
-	float deltaTime;
-	Clock reloj;
-	
-	//luego habria que poner los 10 mayores puntajes junto a las primeras 3 iniciales.
-	int highscore = 0;
-	string filename = "savedata.bin";
+	int highscore = 0; //de momento solo puse un int, pero luego deberiamos poner un vector
+	string filename; //nombre del archivo para guardar los scores
 };
 
 #endif

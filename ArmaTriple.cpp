@@ -2,6 +2,8 @@
 #include <cmath>
 using namespace std;
 
+//las funciones hacen casi lo mismo que las del arma base, solo que para 3 vectores en vez de uno.
+
 ArmaTriple::ArmaTriple() : Arma(3, 200) {
 	
 }

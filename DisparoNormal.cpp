@@ -4,6 +4,7 @@ DisparoNormal::DisparoNormal (Texture & t, Vector2f pos, Vector2f dir) : Disparo
 	
 }
 
+//mover a la velocidad que tiene asignada la bala.
 void DisparoNormal::Actualizar () {
 	m_sprite.move(m_velocidad);
 }

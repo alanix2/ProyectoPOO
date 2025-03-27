@@ -1,5 +1,5 @@
-#ifndef ARMABASE_H
-#define ARMABASE_H
+#ifndef ARMANORMAL_H
+#define ARMANORMAL_H
 #include "Arma.h"
 #include "DisparoNormal.h"
 #include <SFML/System/Vector2.hpp>
@@ -7,10 +7,10 @@
 #include <vector>
 using namespace std;
 using namespace sf;
-
-class ArmaBase : public Arma {
+//el arma con la que empieza el jugador, y que se le asgina cada vez que pierde una vida.
+class ArmaNormal : public Arma {
 public:
-	ArmaBase();
+	ArmaNormal();
 	void Actualizar() override;
 	void Dibujar(RenderWindow &w) override;
 	void Disparar(Vector2f pos, float rotation) override;
@@ -19,7 +19,7 @@ protected:
 	void destruirFueraDePantalla() override;
 	void destruirInactivos() override;
 private:	
-	vector<DisparoNormal> m_balas;
+	vector<DisparoNormal> m_balas; //el vector con las balas
 	
 };
 

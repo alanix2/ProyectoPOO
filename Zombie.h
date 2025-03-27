@@ -8,6 +8,9 @@
 using namespace sf;
 using namespace std;
 
+//un zombie muy basico que nomas se mueve hacia la posición del jugador hasta tocarlo.
+//muy simple y se tendría que mejorar, pero sirve para dar una idea de como es.
+
 class Zombie : public EnemigoBase {
 public:
 	Zombie(Texture &t, Vector2f pos);

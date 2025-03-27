@@ -1,6 +1,7 @@
 #include "Disparo.h"
 #include <cmath>
 
+//necesita la textura, porción de la textura, la posición, dirección y velocidad.
 Disparo::Disparo(Texture &t,IntRect TexturePortion, Vector2f pos, Vector2f dir, float vel) : EntidadDibujable(t,TexturePortion) {
 	m_sprite.setPosition(pos);
 	m_sprite.setRotation(atan2(dir.y,dir.x) * 180 / static_cast<float>(M_PI));

@@ -6,7 +6,7 @@
 using namespace std;
 using namespace sf;
 
-Jugador::Jugador() : m_armaEquipada(make_unique<ArmaBase>()){
+Jugador::Jugador() : m_armaEquipada(make_unique<ArmaNormal>()){
 	m_texture.loadFromFile("assets/player/player.png");
 	m_sprite.setTexture(m_texture);
 	m_sprite.setTextureRect(IntRect(0,0,32,16));
@@ -41,11 +41,11 @@ bool Jugador::sePresionoDisparo ( ) {
 }	
 
 void Jugador::CambiarArma (unique_ptr<Arma> nuevaArma) {
-	m_armaEquipada = move(nuevaArma);
+	m_armaEquipada = move(nuevaArma); //el puntero de arma apunta a la nueva arma.
 }
 
 bool Jugador::lograAtacar (FloatRect hb) {
-	return m_armaEquipada->VerificarColision(hb);
+	return m_armaEquipada->VerificarColision(hb); //verifica si el o los proyectiles del arma colisiona
 }
 
 int Jugador::verDanioArma ( ) {
@@ -73,16 +73,17 @@ int Jugador::verPuntos ( ) {
 }
 
 void Jugador::ConfigurarControles ( ) {
-	//asignacion de los controles, despues se tendria que hacer leyendo desde un archivo.
+	//asignacion de los controles
+	//se tendria que modificar para que lea desde un archivo.
 	m_der = Keyboard::D;
 	m_izq = Keyboard::A;
 	m_arr = Keyboard::W;
 	m_aba = Keyboard::S;
 	
-	m_disp_arr = Keyboard::I;
-	m_disp_aba = Keyboard::K;
-	m_disp_izq = Keyboard::J;
-	m_disp_der = Keyboard::L;
+	m_disp_arr = Keyboard::Up;
+	m_disp_aba = Keyboard::Down;
+	m_disp_izq = Keyboard::Left;
+	m_disp_der = Keyboard::Right;
 }
 
 void Jugador::mover ( ) {
@@ -129,9 +130,9 @@ void Jugador::rotarSprite ( ) {
 		direccion.x += 1.f; // Derecha
 	}
 	
-	// Si el jugador presiona alguna tecla, rota el sprite
 	if (direccion != Vector2f(0.f, 0.f)) {
 		float angulo = atan2(direccion.y, direccion.x) * 180 / M_PI;
 		m_sprite.setRotation(angulo);
 	}
+//no se si hay alguna manera mas simple de hacer esto xd.
 }

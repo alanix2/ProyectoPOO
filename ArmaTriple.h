@@ -7,6 +7,8 @@
 #include <vector>
 using namespace std;
 
+//un arma que dispara tres projectiles a la vez. tiene 3 vectores de balas para disparo triple.
+
 class ArmaTriple : public Arma {
 public:
 	ArmaTriple();
@@ -18,9 +20,9 @@ protected:
 	void destruirFueraDePantalla() override;
 	void destruirInactivos() override;
 private:
-	vector<DisparoTriple> m_balas1; // disparo en el medio
-	vector<DisparoTriple> m_balas2; // disparo a la izquierda
-	vector<DisparoTriple> m_balas3; // disparo a la derecha
+	vector<DisparoTriple> m_balas1; // balas en el medio
+	vector<DisparoTriple> m_balas2; // balas a la izquierda
+	vector<DisparoTriple> m_balas3; // balas a la derecha
 };
 
 #endif
