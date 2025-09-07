@@ -1,7 +1,7 @@
 #ifndef ITEMARMATRIPLE_H
 #define ITEMARMATRIPLE_H
 #include "ItemBase.h"
-#include "Jugador.h"
+#include "../entidades/jugador/Jugador.h"
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Vector2.hpp>
 

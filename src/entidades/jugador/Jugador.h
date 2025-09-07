@@ -1,9 +1,9 @@
 #ifndef JUGADOR_H
 #define JUGADOR_H
-#include "EntidadDibujable.h"
-#include "Disparo.h"
-#include "ArmaNormal.h"
-#include "ArmaTriple.h"
+#include "../../core/EntidadDibujable.h"
+#include "../../proyectiles/Disparo.h"
+#include "../../armas/ArmaNormal.h"
+#include "../../armas/ArmaTriple.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>

@@ -1,7 +1,7 @@
 #include "EscenaGameOver.h"
 #include "EscenaPartida.h"
-#include "Juego.h"
 #include "EscenaMenu.h"
+#include "../core/Juego.h"
 #include <sstream>
 #include <iomanip>
 using namespace std;

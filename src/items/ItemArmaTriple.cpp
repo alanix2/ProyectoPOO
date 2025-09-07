@@ -1,5 +1,5 @@
 #include "ItemArmaTriple.h"
-#include "ArmaTriple.h"
+#include "../armas/ArmaTriple.h"
 #include <memory>
 using namespace std;
 

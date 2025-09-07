@@ -4,8 +4,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
-#include "EntidadDibujable.h"
 #include <SFML/Graphics/Rect.hpp>
+#include "../core/EntidadDibujable.h"
 using namespace sf; 
 //la clase base para el disparo, bala, o proyectil que contiene cada arma.
 

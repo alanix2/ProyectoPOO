@@ -3,7 +3,7 @@
 #include "EnemigoBase.h"
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Vector2.hpp>
-#include "ItemBase.h"
+#include "../../items/ItemBase.h"
 
 using namespace sf;
 using namespace std;

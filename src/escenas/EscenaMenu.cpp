@@ -1,8 +1,8 @@
-#include "EscenaMenu.h"
 #include <SFML/Window/Keyboard.hpp>
-#include "EscenaPartida.h"
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "Juego.h"
+#include "EscenaMenu.h"
+#include "EscenaPartida.h"
+#include "../core/Juego.h"
 
 #include <sstream>
 #include <iomanip>
@@ -21,7 +21,7 @@ EscenaMenu::EscenaMenu(Juego &j) : Escena(j) {
 	}
 	m_texts[0].setPosition(130,150);
 	m_texts[0].setCharacterSize(70);
-	m_texts[0].setString("TITULO DEL JUEGO xd");
+	m_texts[0].setString("TITULO DEL JUEGO");
 	m_texts[0].setOutlineThickness(2);
 	m_texts[0].setFillColor({241,214,32});
 	

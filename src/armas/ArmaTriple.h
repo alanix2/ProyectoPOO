@@ -1,7 +1,7 @@
 #ifndef ARMATRIPLE_H
 #define ARMATRIPLE_H
 #include "Arma.h"
-#include "DisparoTriple.h"
+#include "../proyectiles/DisparoTriple.h"
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <vector>

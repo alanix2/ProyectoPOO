@@ -1,6 +1,6 @@
 #ifndef JUEGO_H
 #define JUEGO_H
-#include "Escena.h"
+#include "../escenas/Escena.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <string>
 #include <SFML/System/Clock.hpp>

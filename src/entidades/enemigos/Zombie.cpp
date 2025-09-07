@@ -1,9 +1,11 @@
 #include "Zombie.h"
 #include <cmath>
 #include <random>
-#include "ItemPuntos.h"
-#include "ItemVidaExtra.h"
-#include "ItemArmaTriple.h"
+
+#include "../../items/ItemPuntos.h"
+#include "../../items/ItemVidaExtra.h"
+#include "../../items/ItemArmaTriple.h"
+
 using namespace std;
 // 2 de velocidad, 50 puntos y 2 de vida
 Zombie::Zombie (Texture & t, Vector2f pos) : EnemigoBase(t,pos,2.0f,50,2) {
@@ -33,7 +35,8 @@ void Zombie::AtacarJugador (Vector2f pos_jugador) {
 	m_sprite.move(dir * m_velocidad);
 }
 
-
+//tiene que haber una mejor manera de generar un item aleatorio al morir.
+//o de que solo haya una chance de dejar un item aleatorio.
 unique_ptr<ItemBase> Zombie::GenerarItem (Texture & t) {
 	//una verga esta cosa deberia de haber una mejor manera xd
 	static random_device rd;

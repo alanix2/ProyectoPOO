@@ -5,7 +5,7 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "Disparo.h"
+#include "../proyectiles/Disparo.h"
 using namespace sf;
 using namespace std;
 

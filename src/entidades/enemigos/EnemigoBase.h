@@ -4,8 +4,8 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "EntidadDibujable.h"
-#include "ItemBase.h"
+#include "../../core/EntidadDibujable.h"
+#include "../../items/ItemBase.h"
 
 using namespace sf;
 using namespace std;

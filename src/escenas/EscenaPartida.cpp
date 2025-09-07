@@ -5,15 +5,15 @@
 #include <memory>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
-#include "EscenaPartida.h"
-#include "Juego.h"
-#include "EscenaGameOver.h"
-#include "EscenaMenu.h"
-#include "ItemPuntos.h"
-#include "Zombie.h"
-#include "ArmaNormal.h"
-#include "ItemArmaTriple.h"
-#include "EnemigoBase.h"
+#include "../escenas/EscenaPartida.h"
+#include "../core/Juego.h"
+#include "../escenas/EscenaGameOver.h"
+#include "../escenas/EscenaMenu.h"
+#include "../items/ItemPuntos.h"
+#include "../entidades/enemigos/Zombie.h"
+#include "../armas/ArmaNormal.h"
+#include "../items/ItemArmaTriple.h"
+#include "../entidades/enemigos/EnemigoBase.h"
 using namespace std;
 using namespace sf;
 

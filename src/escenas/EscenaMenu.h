@@ -4,7 +4,7 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/System/Clock.hpp>
-#include "Juego.h"
+#include "../core/Juego.h"
 using namespace sf;
 
 class EscenaMenu : public Escena {

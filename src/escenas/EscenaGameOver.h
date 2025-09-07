@@ -3,9 +3,9 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
-#include "Escena.h"
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/Clock.hpp>
+#include "Escena.h"
 
 //esto es para el game over, muestra los puntos que obtuvo el jugador.
 //se podria hacer una distinta cuando el jugador gane el juego?

@@ -1,11 +1,12 @@
 #ifndef ESCENAPARTIDA_H
 #define ESCENAPARTIDA_H
-#include "Disparo.h"
-#include "Escena.h"
-#include "Juego.h"
-#include "EnemigoBase.h"
-#include "Jugador.h"
-#include "ItemBase.h"
+#include "../proyectiles/Disparo.h"
+#include "../escenas/Escena.h"
+#include "../core/Juego.h"
+#include "../entidades/enemigos/EnemigoBase.h"
+#include "../entidades/jugador/Jugador.h"
+#include "../items/ItemBase.h"
+#include "../nivel/fondo/FondoHabitacion.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -15,7 +16,6 @@
 #include <SFML/System/Vector2.hpp>
 #include <vector>
 #include <memory>
-#include "FondoHabitacion.h"
 
 /*
 ALGO QUE CAPAZ ME OLVIDE DE EXPLICAR

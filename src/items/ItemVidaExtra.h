@@ -1,7 +1,7 @@
 #ifndef ITEMVIDAEXTRA_H
 #define ITEMVIDAEXTRA_H
 #include "ItemBase.h"
-#include "Jugador.h"
+#include "../entidades/jugador/Jugador.h"
 
 class ItemVidaExtra : public ItemBase {
 public:

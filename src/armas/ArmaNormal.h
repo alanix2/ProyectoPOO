@@ -1,7 +1,7 @@
 #ifndef ARMANORMAL_H
 #define ARMANORMAL_H
 #include "Arma.h"
-#include "DisparoNormal.h"
+#include "../proyectiles/DisparoNormal.h"
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <vector>

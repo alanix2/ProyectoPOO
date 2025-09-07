@@ -4,7 +4,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
-#include "Jugador.h"
+#include "../entidades/jugador/Jugador.h"
 
 using namespace sf;
 using namespace std;
